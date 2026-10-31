@@ -3,31 +3,26 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KubeSREAI — A self-hosted AI SRE for Kubernetes</title>
-  <meta name="description" content="A self-hosted AI Site Reliability Engineer for Kubernetes. Detects incidents, traces root causes, and proposes remediations — entirely inside your cluster, with no data egress.">
+  <title>KubeSREAI — Offline AI SRE for sovereign cloud and air-gapped systems</title>
+  <meta name="description" content="KubeSREAI is an offline AI SRE for sovereign cloud and air-gapped environments. It finds the root cause of production incidents and proposes safe, approved fixes, with the model and your data staying inside your network.">
 
   <!-- Favicon: inline SVG monogram, no external file -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%236366F1'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='20' font-weight='bold' fill='%23ffffff' text-anchor='middle'%3EK%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3ClinearGradient%20id='f'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23818CF8'/%3E%3Cstop%20offset='1'%20stop-color='%232DD4BF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20x='0.75'%20y='0.75'%20width='30.5'%20height='30.5'%20rx='8'%20fill='%230B0F1A'%20stroke='url%28%23f%29'%20stroke-opacity='0.6'%20stroke-width='1.5'/%3E%3Cpath%20d='M16%205.5%20L24.5%208.8%20V15.2%20C24.5%2020.6%2020.9%2024.5%2016%2026.5%20C11.1%2024.5%207.5%2020.6%207.5%2015.2%20V8.8%20Z'%20fill='url%28%23f%29'%20fill-opacity='0.14'%20stroke='url%28%23f%29'%20stroke-width='1.8'%20stroke-linejoin='round'/%3E%3Cpath%20d='M10%2016.2%20H12.8%20L14.6%2012%20L17.2%2020.4%20L19%2016.2%20H22'%20fill='none'%20stroke='%23F3F2EF'%20stroke-width='1.8'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
 
-  <!-- Open Graph / Twitter — link preview when shared.
-       og.png ships alongside index.html (build.py copies it into dist/).
-       Image URLs are absolute for the widest scraper support. -->
+  <!-- Open Graph / Twitter: og.png ships alongside index.html (build.py copies it). -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.kubesreai.com/">
-  <meta property="og:title" content="KubeSREAI — A self-hosted AI SRE for Kubernetes">
-  <meta property="og:description" content="A self-hosted AI SRE that detects Kubernetes incidents, traces root causes, and proposes remediations — entirely in your cluster, with no data egress.">
+  <meta property="og:title" content="KubeSREAI — Offline AI SRE for sovereign cloud and air-gapped systems">
+  <meta property="og:description" content="Root causes and safe, approved fixes for production incidents, entirely inside your network. No internet, no external AI API, no GPU required.">
   <meta property="og:image" content="https://www.kubesreai.com/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="KubeSREAI — A self-hosted AI SRE for Kubernetes">
-  <meta name="twitter:description" content="A self-hosted AI SRE that detects Kubernetes incidents, traces root causes, and proposes remediations — entirely in your cluster, with no data egress.">
+  <meta name="twitter:title" content="KubeSREAI — Offline AI SRE for sovereign cloud and air-gapped systems">
+  <meta name="twitter:description" content="Root causes and safe, approved fixes for production incidents, entirely inside your network. No internet, no external AI API, no GPU required.">
   <meta name="twitter:image" content="https://www.kubesreai.com/og.png">
 
-  <!-- Inter is self-hosted: subset woff2 embedded as base64 in the <style>
-       below (font_faces). Zero external requests. Regenerate with
-       static/make_fonts.py if the page text gains new glyphs. -->
-
+  <!-- Inter is self-hosted: subset woff2 embedded as base64 (font_faces). Zero external requests. -->
   <style>
         @font-face {
       font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap;
@@ -42,1246 +37,606 @@
       src: url(data:font/woff2;base64,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) format('woff2');
     }
 
-    /* ============================================================
-       DESIGN SYSTEM — all tokens live here. Do not hardcode values
-       outside :root.
-       ============================================================ */
     :root {
-      /* Color palette */
-      --bg-base:         #08090A;
-      --bg-surface:      #111318;
-      --bg-elevated:     #1A1D26;
-      --border:          #1F2028;
-
-      --accent-primary:  #6366F1;
-      --accent-hover:    #4F46E5;
-      --accent-amber:    #F59E0B;
-      --accent-amber-dim:#B45309;
-
-      --text-primary:    #F1F0EE;
-      --text-muted:      #6B7280;
-      --text-faint:      #374151;
-
-      --green-ok:        #10B981;
-      --red-alert:       #EF4444;
-      --yellow-warn:     #FBBF24;
-
-      /* Architecture diagram zone accents */
-      --zone-coral:      #F87171;
-      --zone-teal:       #2DD4BF;
-
-      /* Typography scale */
-      --text-xs:   0.75rem;
-      --text-sm:   0.875rem;
-      --text-base: 1rem;
-      --text-lg:   1.125rem;
-      --text-xl:   1.25rem;
-      --text-2xl:  1.5rem;
-      --text-3xl:  1.875rem;
-      --text-4xl:  2.25rem;
-      --text-5xl:  3rem;
-
-      /* Spacing — 4px base unit */
-      --space-1:  4px;
-      --space-2:  8px;
-      --space-3:  12px;
-      --space-4:  16px;
-      --space-6:  24px;
-      --space-8:  32px;
-      --space-12: 48px;
-      --space-16: 64px;
-      --space-24: 96px;
-
-      /* Radius */
-      --radius-sm: 4px;
-      --radius-md: 8px;
-      --radius-lg: 16px;
-
-      /* Shadows */
-      --shadow-card: 0 1px 3px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
-
-      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-      --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Menlo, Consolas, monospace;
-
-      --maxw: 1120px;
+      --bg: #07080B;
+      --bg-2: #0C0E14;
+      --surface: rgba(255,255,255,0.03);
+      --surface-2: rgba(255,255,255,0.055);
+      --line: rgba(255,255,255,0.08);
+      --line-2: rgba(255,255,255,0.14);
+      --text: #F3F2EF;
+      --muted: #9CA3AF;
+      --faint: #8B93A1;
+      --indigo: #6366F1;
+      --indigo-2: #818CF8;
+      --teal: #2DD4BF;
+      --amber: #F59E0B;
+      --green: #10B981;
+      --red: #F87171;
+      --radius: 14px;
+      --maxw: 1160px;
+      --font: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Roboto Mono', Menlo, Consolas, monospace;
     }
 
-    /* ============================================================
-       BASE
-       ============================================================ */
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
     body {
-      margin: 0;
-      background: var(--bg-base);
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      font-size: var(--text-base);
-      line-height: 1.6;
-      font-weight: 400;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: var(--font); font-size: 16px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
     }
-    h1, h2, h3, h4 { margin: 0; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; }
+    h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.025em; line-height: 1.1; }
     p { margin: 0; }
     a { color: inherit; text-decoration: none; }
     ul { margin: 0; padding: 0; list-style: none; }
-    img, svg { display: block; }
-    button { font-family: inherit; cursor: pointer; border: none; background: none; }
-    input { font-family: inherit; }
-
-    .container {
-      width: 100%;
-      max-width: var(--maxw);
-      margin: 0 auto;
-      padding-left: var(--space-6);
-      padding-right: var(--space-6);
-    }
-
-    section { padding-top: var(--space-24); padding-bottom: var(--space-24); }
+    .wrap { width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+    section { padding: 112px 0; position: relative; }
 
     .eyebrow {
-      display: inline-block;
-      font-size: var(--text-sm);
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: var(--space-4);
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--indigo-2); margin-bottom: 18px;
     }
-    .section-title {
-      font-size: var(--text-4xl);
-      max-width: 20ch;
-      margin-bottom: var(--space-4);
-    }
-    .section-lead {
-      font-size: var(--text-lg);
-      color: var(--text-muted);
-      max-width: 62ch;
+    .eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--indigo-2); }
+    .h2 { font-size: clamp(30px, 4vw, 46px); max-width: 22ch; }
+    .lead { font-size: 18px; color: var(--muted); max-width: 62ch; margin-top: 18px; }
+    .grad {
+      background: linear-gradient(90deg, #A5B4FC 0%, #2DD4BF 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
 
     /* Buttons */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: var(--space-2);
-      font-size: var(--text-base);
-      font-weight: 500;
-      padding: var(--space-3) var(--space-6);
-      border-radius: var(--radius-md);
-      transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
-      border: 1px solid transparent;
+      display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 15px;
+      padding: 12px 22px; border-radius: 10px; transition: all .18s ease; white-space: nowrap;
     }
-    .btn-primary { background: var(--accent-primary); color: #fff; }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-ghost { border-color: var(--border); color: var(--text-primary); }
-    .btn-ghost:hover { border-color: var(--accent-primary); }
-    .btn-amber { background: var(--accent-amber); color: #1A1206; }
-    .btn-amber:hover { background: var(--accent-amber-dim); color: #fff; }
+    .btn-primary { background: var(--indigo); color: #fff; box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 8px 30px rgba(99,102,241,0.35); }
+    .btn-primary:hover { background: #5458E8; transform: translateY(-1px); }
+    .btn-ghost { border: 1px solid var(--line-2); color: var(--text); }
+    .btn-ghost:hover { background: var(--surface-2); }
 
-    /* ============================================================
-       [1] NAV
-       ============================================================ */
-    #nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: var(--bg-base);
-      border-bottom: 1px solid transparent;
-      transition: border-color 200ms ease;
+    /* Nav */
+    .nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(7,8,11,0.72); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
     }
-    #nav.scrolled { border-bottom-color: var(--border); }
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-    .wordmark {
-      font-size: var(--text-lg);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--text-primary);
-    }
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: var(--space-8);
-    }
-    .nav-links a.nav-link {
-      color: var(--text-muted);
-      font-size: var(--text-sm);
-      font-weight: 500;
-      transition: color 200ms ease;
-    }
-    .nav-links a.nav-link:hover { color: var(--text-primary); }
+    .nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand svg { flex: none; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 600; letter-spacing: -0.01em; }
+    .nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--muted); }
+    .nav-links a:hover { color: var(--text); }
+    .nav .btn { padding: 8px 16px; font-size: 14px; }
 
-    .nav-cta { padding: var(--space-2) var(--space-4); font-size: var(--text-sm); }
+    /* Hero */
+    .hero { padding: 96px 0 88px; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(700px 380px at 18% 0%, rgba(99,102,241,0.22), transparent 70%),
+        radial-gradient(600px 360px at 85% 20%, rgba(45,212,191,0.12), transparent 70%);
+    }
+    .hero::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+      background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 56px 56px;
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, #000 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 20%, #000 30%, transparent 75%);
+    }
+    .hero .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: 1.05fr 1fr; gap: 56px; align-items: center; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text);
+      padding: 6px 14px 6px 8px; border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface);
+      margin-bottom: 26px;
+    }
+    .pill .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px var(--green); margin-left: 4px; }
+    .hero h1 { font-size: clamp(40px, 5.6vw, 66px); letter-spacing: -0.035em; }
+    .hero-sub { font-size: 19px; color: var(--muted); margin-top: 24px; max-width: 54ch; }
+    .hero-ctas { display: flex; gap: 12px; margin-top: 36px; flex-wrap: wrap; }
+    .proof { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-top: 40px; font-size: 14px; color: var(--muted); }
+    .proof span { display: inline-flex; align-items: center; gap: 8px; }
+    .proof svg { color: var(--teal); flex: none; }
 
-    /* Hamburger (CSS-only icon) */
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      gap: 5px;
-      width: 40px;
-      height: 40px;
-      padding: 8px;
+    /* Perimeter visual */
+    .perimeter {
+      position: relative; border: 1.5px dashed rgba(45,212,191,0.45); border-radius: 20px;
+      padding: 44px 22px 22px; background: linear-gradient(180deg, rgba(45,212,191,0.05), rgba(99,102,241,0.04));
     }
-    .hamburger span {
-      display: block;
-      height: 2px;
-      width: 100%;
-      background: var(--text-primary);
-      border-radius: 2px;
-      transition: transform 200ms ease, opacity 200ms ease;
+    .perimeter-tag {
+      position: absolute; top: -12px; left: 22px; background: var(--bg); padding: 0 10px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em; color: var(--teal); text-transform: uppercase;
     }
+    .status-row { position: absolute; top: 14px; right: 18px; display: flex; gap: 8px; }
+    .status { font-size: 11px; font-family: var(--mono); color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; background: rgba(0,0,0,0.3); }
+    .status b { color: var(--green); font-weight: 500; }
+    .card {
+      background: rgba(12,14,20,0.92); border: 1px solid var(--line-2); border-radius: var(--radius);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+    }
+    .inc-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 13px; }
+    .sev { font-size: 11px; font-weight: 600; letter-spacing: .06em; color: var(--red); border: 1px solid rgba(248,113,113,0.4); background: rgba(248,113,113,0.1); padding: 2px 8px; border-radius: 6px; }
+    .inc-body { padding: 18px; font-size: 14px; display: grid; gap: 14px; }
+    .k { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); margin-bottom: 4px; }
+    .v-mono { font-family: var(--mono); font-size: 13px; color: var(--text); }
+    .chain { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-family: var(--mono); font-size: 12px; }
+    .chain .n { border: 1px solid var(--line-2); padding: 3px 8px; border-radius: 6px; color: var(--muted); }
+    .chain .n.root { border-color: rgba(245,158,11,0.6); color: var(--amber); background: rgba(245,158,11,0.08); }
+    .chain .a { color: var(--faint); }
+    .fix { font-family: var(--mono); font-size: 12.5px; background: rgba(0,0,0,0.35); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; color: #C7D2FE; }
+    .inc-foot { display: flex; gap: 10px; padding: 0 18px 18px; }
+    .mini { font-size: 13px; padding: 7px 14px; border-radius: 8px; }
+    .mini.ok { background: var(--green); color: #04130D; font-weight: 600; }
+    .mini.no { border: 1px solid var(--line-2); color: var(--muted); }
+    .illus { position: absolute; bottom: 10px; left: 24px; font-size: 11px; color: var(--faint); letter-spacing: .04em; }
+    .outside {
+      display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin-top: 18px;
+      font-size: 13px; color: var(--faint);
+    }
+    .blocked { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; text-decoration: line-through; text-decoration-color: rgba(248,113,113,0.7); }
+    .blocked svg { color: var(--red); }
 
-    /* Mobile full-screen overlay */
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 60;
-      background: var(--bg-base);
-      flex-direction: column;
-      padding: var(--space-6);
-    }
-    .mobile-menu.open { display: flex; }
-    .mobile-menu-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-    .mobile-menu-close {
-      color: var(--text-primary);
-      font-size: var(--text-2xl);
-      line-height: 1;
-      padding: var(--space-2);
-    }
-    .mobile-menu nav {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-6);
-      margin-top: var(--space-12);
-    }
-    .mobile-menu nav a {
-      font-size: var(--text-2xl);
-      font-weight: 500;
-      color: var(--text-primary);
-    }
-    .mobile-menu .btn { margin-top: var(--space-8); }
 
-    /* ============================================================
-       [2] HERO
-       ============================================================ */
-    #hero { padding-top: var(--space-16); }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-16);
-      align-items: center;
+    /* Why offline */
+    .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 56px; }
+    .tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; transition: border-color .2s; }
+    .tile:hover { border-color: var(--line-2); }
+    .tile h3 { font-size: 19px; margin: 18px 0 10px; }
+    .tile p { color: var(--muted); font-size: 15px; }
+    .ico { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: rgba(99,102,241,0.12); color: var(--indigo-2); border: 1px solid rgba(99,102,241,0.25); }
+    .stat-band {
+      margin-top: 18px; display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center;
+      border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 30px;
+      background: linear-gradient(90deg, rgba(99,102,241,0.10), rgba(45,212,191,0.05));
     }
-    .hero h1 {
-      font-size: var(--text-5xl);
-      max-width: 12ch;
-      margin-bottom: var(--space-6);
-    }
-    .hero-sub {
-      font-size: var(--text-xl);
-      color: var(--text-muted);
-      max-width: 52ch;
-      margin-bottom: var(--space-8);
-    }
-    .hero-ctas { display: flex; gap: var(--space-4); flex-wrap: wrap; }
+    .stat-num { font-size: 52px; font-weight: 600; letter-spacing: -0.04em; }
+    .stat-band p { color: var(--muted); }
+    .src { font-size: 12px; color: var(--faint); margin-top: 6px; }
 
-    /* Terminal incident card */
-    .terminal {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
-      overflow: hidden;
-    }
-    .terminal-bar {
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-3) var(--space-4);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-base);
-    }
-    .terminal-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .dot-r { background: var(--red-alert); }
-    .dot-y { background: var(--yellow-warn); }
-    .dot-g { background: var(--green-ok); }
-    .terminal-title { margin-left: var(--space-2); color: var(--text-muted); font-size: var(--text-xs); }
-    .terminal-body { padding: var(--space-4); }
-    .terminal-row { padding: var(--space-2) 0; }
-    .terminal-divider { border-top: 1px solid var(--border); margin: var(--space-2) 0; }
-    .terminal-label { color: var(--text-muted); }
-    .terminal-code { color: var(--zone-teal); }
-    .sev-critical { color: var(--red-alert); font-weight: 600; }
-    .confidence { color: var(--green-ok); }
-    .terminal-actions { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-3); }
-    .term-btn {
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-      padding: var(--space-2) var(--space-3);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      color: var(--text-primary);
-      background: var(--bg-elevated);
-    }
-    .term-btn.approve { color: var(--green-ok); border-color: var(--green-ok); }
-    .term-btn.dismiss { color: var(--red-alert); border-color: var(--red-alert); }
+    /* Comparison */
+    .compare { margin-top: 56px; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+    .row { display: grid; grid-template-columns: 1.1fr 1fr 1.25fr; }
+    .row > div { padding: 18px 24px; border-top: 1px solid var(--line); font-size: 15px; }
+    .row:first-child > div { border-top: 0; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); font-weight: 600; background: var(--bg-2); }
+    .row > div:first-child { color: var(--muted); }
+    .row > div:nth-child(2) { color: var(--faint); }
+    .row > div:nth-child(3) { color: var(--text); background: rgba(45,212,191,0.04); border-left: 1px solid rgba(45,212,191,0.2); }
+    .row:first-child > div:nth-child(3) { color: var(--teal); }
 
-    /* Pulse — applied only to the critical indicator */
-    .pulse {
-      display: inline-block;
-      animation: pulse 1.8s ease-in-out infinite;
+    /* Steps */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 56px; counter-reset: s; }
+    .step { position: relative; padding: 28px 24px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--surface); }
+    .step::before {
+      counter-increment: s; content: "0" counter(s);
+      font-family: var(--mono); font-size: 13px; color: var(--indigo-2);
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.35; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .pulse { animation: none; }
-      html { scroll-behavior: auto; }
-    }
+    .step h3 { font-size: 18px; margin: 14px 0 10px; }
+    .step p { font-size: 15px; color: var(--muted); }
+    .modes { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; font-size: 14px; color: var(--muted); }
+    .chip { border: 1px solid var(--line-2); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--text); background: var(--surface); }
 
-    /* ============================================================
-       [3] PROBLEM
-       ============================================================ */
-    .stat-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-6);
-      margin: var(--space-12) 0;
-    }
-    .stat-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: var(--space-8);
-    }
-    .stat-num {
-      font-size: var(--text-4xl);
-      font-weight: 600;
-      color: var(--accent-amber);
-      letter-spacing: -0.02em;
-    }
-    .stat-label {
-      font-size: var(--text-sm);
-      color: var(--text-muted);
-      margin-top: var(--space-2);
-    }
-    .problem-note {
-      font-size: var(--text-lg);
-      color: var(--text-muted);
-      max-width: 68ch;
-    }
-    .stat-source {
-      margin-top: var(--space-4);
-      font-size: var(--text-xs);
-      color: var(--text-faint);
-      max-width: 68ch;
-    }
+    /* Coverage */
+    .cov { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 56px; }
+    .cov-card { border-radius: 18px; padding: 34px; border: 1px solid var(--line); background: var(--surface); }
+    .cov-card.now { border-color: rgba(16,185,129,0.35); background: linear-gradient(180deg, rgba(16,185,129,0.08), rgba(16,185,129,0.01)); }
+    .badge { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; }
+    .badge.now { color: var(--green); border: 1px solid rgba(16,185,129,0.5); background: rgba(16,185,129,0.1); }
+    .badge.next { color: var(--amber); border: 1px solid rgba(245,158,11,0.5); background: rgba(245,158,11,0.1); }
+    .cov-card h3 { font-size: 26px; margin: 18px 0 12px; }
+    .cov-card > p { color: var(--muted); }
+    .checks { margin-top: 22px; display: grid; gap: 10px; font-size: 15px; }
+    .checks li { display: flex; gap: 10px; align-items: flex-start; }
+    .checks svg { color: var(--green); flex: none; margin-top: 4px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .chips .chip { padding: 7px 14px; font-size: 14px; }
+    .chips .chip.first { border-color: rgba(245,158,11,0.55); color: var(--amber); }
+    .note { font-size: 13px; color: var(--faint); margin-top: 18px; }
 
-    /* ============================================================
-       [4] HOW IT WORKS
-       ============================================================ */
-    .timeline {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--space-6);
-      margin-top: var(--space-12);
-      position: relative;
-    }
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 18px;
-      left: 12.5%;
-      right: 12.5%;
-      height: 2px;
-      background: var(--border);
-      z-index: 0;
-    }
-    .step { position: relative; z-index: 1; }
-    .step-circle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent-primary);
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: var(--text-base);
-      margin-bottom: var(--space-4);
-      border: 4px solid var(--bg-base);
-    }
-    .step h3 { font-size: var(--text-xl); margin-bottom: var(--space-2); }
-    .step p { color: var(--text-muted); font-size: var(--text-sm); }
+    /* Architecture */
+    .arch { margin-top: 56px; position: relative; border: 1.5px dashed rgba(45,212,191,0.4); border-radius: 22px; padding: 46px 28px 28px; }
+    .arch-tag { position: absolute; top: -12px; left: 28px; background: var(--bg); padding: 0 10px; font-size: 11px; font-weight: 600; letter-spacing: .14em; color: var(--teal); text-transform: uppercase; }
+    .arch-grid { display: grid; grid-template-columns: 1fr auto 1.2fr auto 1fr; gap: 16px; align-items: stretch; }
+    .arch-col { border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; background: var(--surface); }
+    .arch-col.core { border-color: rgba(99,102,241,0.45); background: linear-gradient(180deg, rgba(99,102,241,0.12), rgba(99,102,241,0.03)); }
+    .arch-col h3 { font-size: 16px; margin-bottom: 14px; }
+    .arch-col li { font-size: 14px; color: var(--muted); padding: 6px 0; border-top: 1px solid var(--line); }
+    .arch-col li:first-child { border-top: 0; }
+    .arrow { display: grid; place-items: center; color: var(--faint); font-size: 22px; }
+    .arch-out { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 26px; font-size: 13px; color: var(--faint); }
 
-    /* ============================================================
-       [5] FEATURES
-       ============================================================ */
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-6);
-      margin-top: var(--space-12);
-    }
-    .feature-card {
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
-      padding: var(--space-8);
-      transition: border-color 200ms ease;
-    }
-    .feature-card:hover { border-color: var(--accent-primary); }
-    .feature-icon { color: var(--accent-primary); margin-bottom: var(--space-4); }
-    .feature-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-2); }
-    .feature-card p { color: var(--text-muted); font-size: var(--text-sm); }
+    /* Security */
+    .sec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 56px; }
+    .soon { font-size: 10.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--amber); border: 1px solid rgba(245,158,11,0.5); border-radius: 999px; padding: 1px 8px; margin-left: 6px; white-space: nowrap; vertical-align: middle; }
 
-    /* ============================================================
-       [6] ZERO EGRESS
-       ============================================================ */
-    #zero-egress {
-      background: var(--bg-surface);
-      border-top: 4px solid var(--accent-amber);
-    }
-    .ze-title { color: var(--accent-amber); font-size: var(--text-4xl); margin-bottom: var(--space-2); }
-    .ze-sub { color: var(--text-muted); font-size: var(--text-lg); margin-bottom: var(--space-12); }
-    .ze-cols {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-8);
-    }
-    .ze-col h3 {
-      font-size: var(--text-lg);
-      margin-bottom: var(--space-3);
-      color: var(--text-primary);
-    }
-    .ze-col p { color: var(--text-muted); font-size: var(--text-sm); }
-    .ze-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-3);
-      margin-top: var(--space-12);
-    }
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      padding: var(--space-2) var(--space-4);
-      border-radius: 999px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--accent-amber);
-      color: var(--text-primary);
-      font-size: var(--text-sm);
-      font-weight: 500;
-    }
-    .badge svg { color: var(--accent-amber); }
+    /* Pricing */
+    .price { margin-top: 56px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+    .price > div { padding: 38px; }
+    .price .left { background: linear-gradient(135deg, rgba(99,102,241,0.14), rgba(45,212,191,0.05)); }
+    .price .left h3 { font-size: 28px; margin-bottom: 12px; }
+    .price .left p { color: var(--muted); }
+    .price .right { border-left: 1px solid var(--line); background: var(--surface); }
 
-    /* ============================================================
-       [7] ARCHITECTURE
-       ============================================================ */
-    .arch { margin-top: var(--space-12); display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
-    .zone {
-      width: 100%;
-      border-radius: var(--radius-lg);
-      padding: var(--space-6);
+    /* Closing band */
+    .closing { padding: 0 0 112px; }
+    .closing .box {
+      border-radius: 22px; padding: 48px; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap;
+      border: 1px solid var(--line-2);
+      background: radial-gradient(500px 220px at 0% 0%, rgba(99,102,241,0.25), transparent 70%), radial-gradient(500px 220px at 100% 100%, rgba(45,212,191,0.15), transparent 70%), var(--bg-2);
     }
-    .zone-a { border: 2px solid var(--zone-coral); }
-    .zone-b { border: 2px dashed var(--border); }
-    .zone-c { border: 2px dashed var(--border); }
-    .zone-label {
-      font-size: var(--text-xs);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: var(--space-4);
-      font-weight: 500;
-    }
-    .arch-box {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: var(--space-3) var(--space-4);
-      font-size: var(--text-sm);
-      text-align: center;
-    }
-    .arch-row {
-      display: grid;
-      gap: var(--space-3);
-      margin-bottom: var(--space-3);
-    }
-    .arch-row.cols-3 { grid-template-columns: repeat(3, 1fr); }
-    .arch-row.cols-2 { grid-template-columns: repeat(2, 1fr); }
-    .arch-row:last-child { margin-bottom: 0; }
-    .tint-coral  { border-color: var(--zone-coral); }
-    .tint-teal   { border-left: 3px solid var(--zone-teal); }
-    .tint-primary{ border-left: 3px solid var(--accent-primary); }
-    .tint-muted  { border-left: 3px solid var(--text-muted); }
-    .tint-amber  { border-left: 3px solid var(--accent-amber); }
-    .arch-arrow { color: var(--text-muted); font-size: var(--text-xl); line-height: 1; }
-    .arch-flow { color: var(--text-muted); font-size: var(--text-sm); text-align: center; margin: var(--space-3) 0; line-height: 1.6; }
-    .soon {
-      display: inline-block;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--accent-amber);
-      background: rgba(245,158,11,0.12);
-      border: 1px solid var(--accent-amber);
-      border-radius: 999px;
-      padding: 1px var(--space-2);
-      margin-left: var(--space-2);
-      white-space: nowrap;
-      vertical-align: middle;
-    }
+    .closing h2 { font-size: clamp(24px, 3vw, 34px); max-width: 26ch; }
+    .closing p { color: var(--muted); margin-top: 10px; }
 
-    /* ============================================================
-       [8] MOCK CONSOLE
-       ============================================================ */
-    .console {
-      margin-top: var(--space-12);
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
-      overflow: hidden;
-    }
-    .console-header {
-      display: flex;
-      align-items: center;
-      gap: var(--space-4);
-      padding: var(--space-4) var(--space-6);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-base);
-      font-size: var(--text-sm);
-      flex-wrap: wrap;
-    }
-    .console-header .ch-name { font-weight: 600; }
-    .console-header .ch-meta { color: var(--text-muted); }
-    .status-dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: var(--green-ok); display: inline-block;
-    }
-    .console-header .spacer { flex: 1; }
-    .incident {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-      padding: var(--space-4) var(--space-6);
-      border-bottom: 1px solid var(--border);
-      border-left: 4px solid transparent;
-    }
-    .incident.critical { border-left-color: var(--red-alert); }
-    .incident.warning { border-left-color: var(--accent-amber); }
-    .inc-top { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
-    .inc-svc { font-weight: 600; font-family: var(--font-mono); }
-    .inc-tag {
-      font-size: var(--text-xs);
-      padding: 2px var(--space-2);
-      border-radius: var(--radius-sm);
-      font-weight: 600;
-    }
-    .tag-critical { background: rgba(239,68,68,0.15); color: var(--red-alert); }
-    .tag-warning { background: rgba(245,158,11,0.15); color: var(--accent-amber); }
-    .inc-desc { color: var(--text-primary); font-size: var(--text-sm); }
-    .inc-meta { color: var(--text-muted); font-size: var(--text-xs); display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; }
-    .inc-actions { display: flex; gap: var(--space-2); margin-left: auto; }
-    .inc-btn {
-      font-size: var(--text-xs);
-      padding: var(--space-1) var(--space-3);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
-      background: var(--bg-elevated);
-      color: var(--text-primary);
-    }
-    .inc-btn.primary { border-color: var(--accent-primary); color: var(--accent-primary); }
+    /* Footer */
+    footer { border-top: 1px solid var(--line); padding: 64px 0 32px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1.5fr; gap: 32px; margin-bottom: 48px; }
+    .footer-col h4 { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin: 0 0 16px; font-weight: 500; }
+    .footer-col .brand { margin-bottom: 12px; }
+    .footer-col p { color: var(--muted); font-size: 14px; }
+    .footer-col .contact { margin-top: 12px; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { color: var(--muted); font-size: 14px; }
+    .footer-bottom { border-top: 1px solid var(--line); padding-top: 24px; color: var(--faint); font-size: 12px; }
 
-    /* Accordion RCA panel */
-    .rca-toggle {
-      width: 100%;
-      text-align: left;
-      padding: var(--space-3) var(--space-6);
-      color: var(--text-muted);
-      font-size: var(--text-sm);
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-      background: var(--bg-base);
-    }
-    .rca-toggle .chev { transition: transform 200ms ease; }
-    .rca-toggle[aria-expanded="true"] .chev { transform: rotate(90deg); }
-    .rca-panel {
-      display: none;
-      padding: var(--space-6);
-      border-top: 1px solid var(--border);
-    }
-    .rca-panel.open { display: block; }
-    .rca-panel h4 { font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-3); }
-    .graph-row { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-6); }
-    .graph-node {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: var(--space-2) var(--space-3);
-      font-family: var(--font-mono);
-      font-size: var(--text-xs);
-    }
-    .graph-node.root { border-color: var(--red-alert); color: var(--red-alert); }
-    .graph-arrow { color: var(--text-muted); }
-    .code-block {
-      background: var(--bg-base);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      padding: var(--space-4);
-      font-family: var(--font-mono);
-      font-size: var(--text-sm);
-      color: var(--zone-teal);
-      overflow-x: auto;
-      white-space: pre;
-      margin-bottom: var(--space-4);
-    }
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: var(--text-xs);
-      padding: var(--space-2) var(--space-3);
-      border-radius: 999px;
-      background: rgba(245,158,11,0.12);
-      color: var(--accent-amber);
-      border: 1px solid var(--accent-amber);
-      font-weight: 500;
-    }
-
-    /* ============================================================
-       [9] PRICING
-       ============================================================ */
-    .pricing-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      max-width: 880px;
-      margin-left: auto;
-      margin-right: auto;
-      gap: var(--space-6);
-      margin-top: var(--space-12);
-      align-items: stretch;
-    }
-    .price-card {
-      display: flex;
-      flex-direction: column;
-      background: var(--bg-surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-card);
-      padding: var(--space-8);
-      transition: border-color 200ms ease;
-    }
-    .price-card:hover { border-color: var(--accent-primary); }
-    .price-card.featured { border-color: var(--accent-primary); }
-    .price-flag {
-      display: inline-block;
-      align-self: flex-start;
-      font-size: var(--text-xs);
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent-primary);
-      background: rgba(99,102,241,0.12);
-      border: 1px solid var(--accent-primary);
-      border-radius: 999px;
-      padding: 2px var(--space-3);
-      margin-bottom: var(--space-4);
-    }
-    .price-name { font-size: var(--text-xl); margin-bottom: var(--space-2); }
-    .price-amount {
-      font-size: var(--text-3xl);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: var(--space-1);
-    }
-    .price-amount .per { font-size: var(--text-sm); font-weight: 400; color: var(--text-muted); }
-    .price-desc { color: var(--text-muted); font-size: var(--text-sm); margin-bottom: var(--space-6); }
-    .price-features { display: flex; flex-direction: column; gap: var(--space-3); margin-bottom: var(--space-8); }
-    .price-features li { display: flex; align-items: flex-start; gap: var(--space-2); font-size: var(--text-sm); color: var(--text-primary); }
-    .price-features svg { color: var(--accent-primary); flex-shrink: 0; margin-top: 3px; }
-    .price-card .btn { margin-top: auto; width: 100%; }
-    .price-note {
-      margin-top: var(--space-8);
-      text-align: center;
-      color: var(--text-muted);
-      font-size: var(--text-sm);
-      max-width: 68ch;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* ============================================================
-       [10] CTA BAND
-       ============================================================ */
-    #cta { background: var(--bg-surface); text-align: center; }
-    #cta h2 { font-size: var(--text-4xl); margin-bottom: var(--space-4); }
-    #cta p { color: var(--text-muted); font-size: var(--text-lg); max-width: 56ch; margin: 0 auto var(--space-8); }
-    .cta-actions { display: flex; justify-content: center; }
-
-    /* ============================================================
-       [11] FOOTER
-       ============================================================ */
-    #footer { border-top: 1px solid var(--border); padding-top: var(--space-16); padding-bottom: var(--space-8); }
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1.5fr;
-      gap: var(--space-8);
-      margin-bottom: var(--space-12);
-    }
-    .footer-col h4 { font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--space-4); font-weight: 500; }
-    .footer-col .wordmark { display: block; margin-bottom: var(--space-3); }
-    .footer-col p { color: var(--text-muted); font-size: var(--text-sm); }
-    .footer-links { display: flex; flex-direction: column; gap: var(--space-3); }
-    .footer-links a { color: var(--text-muted); font-size: var(--text-sm); transition: color 200ms ease; }
-    .footer-links a:hover { color: var(--text-primary); }
-    .footer-bottom {
-      border-top: 1px solid var(--border);
-      padding-top: var(--space-6);
-      color: var(--text-faint);
-      font-size: var(--text-xs);
-    }
-
-    /* ============================================================
-       RESPONSIVE
-       ============================================================ */
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; gap: var(--space-12); }
-      .hero h1 { font-size: var(--text-4xl); }
-      .features-grid { grid-template-columns: repeat(2, 1fr); }
-      .timeline { grid-template-columns: repeat(2, 1fr); }
-      .timeline::before { display: none; }
-      .ze-cols { grid-template-columns: 1fr; gap: var(--space-8); }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
-      .footer-grid { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 980px) {
+      .hero .wrap { grid-template-columns: 1fr; }
+      .why-grid, .sec-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .cov, .price { grid-template-columns: 1fr; }
+      .price .right { border-left: 0; border-top: 1px solid var(--line); }
+      .arch-grid { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); }
+      .nav-links { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 640px) {
-      section { padding-top: var(--space-16); padding-bottom: var(--space-16); }
-      .nav-links { display: none; }
-      .hamburger { display: flex; }
-      .section-title, .ze-title, #cta h2 { font-size: var(--text-3xl); }
-      .hero h1 { font-size: var(--text-3xl); }
-      .stat-row { grid-template-columns: 1fr; }
-      .features-grid { grid-template-columns: 1fr; }
-      .timeline { grid-template-columns: 1fr; }
-      .arch-row.cols-3, .arch-row.cols-2 { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr; }
-      .inc-actions { margin-left: 0; }
+      section { padding: 80px 0; }
+      .why-grid, .sec-grid, .steps { grid-template-columns: 1fr; }
+      .row { grid-template-columns: 1fr; }
+      .row > div:nth-child(3) { border-left: 0; }
+      .row:first-child { display: none; }
+      .row > div:first-child { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); padding-bottom: 6px; }
+      .row > div:nth-child(2), .row > div:nth-child(3) { border-top: 0; padding-top: 6px; }
+      .row > div:nth-child(2)::before { content: "Hosted: "; color: var(--faint); }
+      .row > div:nth-child(3)::before { content: "KubeSREAI: "; color: var(--teal); }
+      .stat-band { grid-template-columns: 1fr; }
+      .status-row { position: static; margin-bottom: 14px; flex-wrap: wrap; }
+      .perimeter { padding-top: 30px; }
+      .closing .box { padding: 32px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- SECTION: NAV -->
-  <header id="nav">
-    <div class="container nav-inner">
-      <a href="#hero" class="wordmark" aria-label="KubeSREAI home">KubeSREAI</a>
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="KubeSREAI home"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#818CF8"/><stop offset="1" stop-color="#2DD4BF"/></linearGradient></defs><path d="M16 5.5 L24.5 8.8 V15.2 C24.5 20.6 20.9 24.5 16 26.5 C11.1 24.5 7.5 20.6 7.5 15.2 V8.8 Z" fill="url(#g1)" fill-opacity="0.14" stroke="url(#g1)" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 16.2 H12.8 L14.6 12 L17.2 20.4 L19 16.2 H22" fill="none" stroke="#F3F2EF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>KubeSREAI</a>
       <nav class="nav-links" aria-label="Primary">
-        <a class="nav-link" href="#how-it-works">How It Works</a>
-        <a class="nav-link" href="#architecture">Architecture</a>
-        <a class="nav-link" href="#pricing">Pricing</a>
-        <a class="nav-link" href="#zero-egress">Zero Egress</a>
-        <a class="btn btn-primary nav-cta" href="#cta">Request Demo</a>
+        <a href="#why">Why offline</a>
+        <a href="#how">How it works</a>
+        <a href="#coverage">Coverage</a>
+        <a href="#security">Security</a>
+        <a href="#pricing">Pricing</a>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a class="btn btn-primary" href="mailto:jenish.mistry@kubesreai.com?subject=KubeSREAI%20briefing">Book a briefing</a>
     </div>
   </header>
 
-  <!-- Mobile overlay menu -->
-  <div class="mobile-menu" id="mobile-menu">
-    <div class="container mobile-menu-head">
-      <span class="wordmark">KubeSREAI</span>
-      <button class="mobile-menu-close" id="mobile-close" aria-label="Close menu">&times;</button>
-    </div>
-    <nav aria-label="Mobile">
-      <a href="#how-it-works" data-close>How It Works</a>
-      <a href="#architecture" data-close>Architecture</a>
-      <a href="#pricing" data-close>Pricing</a>
-      <a href="#zero-egress" data-close>Zero Egress</a>
-      <a class="btn btn-primary" href="#cta" data-close>Request Demo</a>
-    </nav>
-  </div>
+  <main id="top">
 
-  <!-- SECTION: HERO -->
-  <section id="hero" class="hero">
-    <div class="container hero-grid">
-      <div>
-        <h1>Stop debugging at 2am. Let your cluster fix itself.</h1>
-        <p class="hero-sub">KubeSREAI is a self-hosted AI SRE that detects Kubernetes incidents, traces root causes, and proposes remediations — running entirely inside your network, even fully air-gapped and on CPU, with no data leaving your environment.</p>
-        <div class="hero-ctas">
-          <!-- Swap to a Calendly link before launch if you prefer scheduling over email -->
-          <a class="btn btn-primary" href="mailto:jenishmistry2911@gmail.com?subject=KubeSREAI%20Early%20Access">Request Early Access</a>
-          <a class="btn btn-ghost" href="#how-it-works">See How It Works</a>
-        </div>
-      </div>
-
-      <div class="terminal" role="img" aria-label="Example KubeSREAI incident card showing a detected CrashLoopBackOff, its root cause, and a proposed fix">
-        <div class="terminal-bar">
-          <span class="terminal-dot dot-r" aria-hidden="true"></span>
-          <span class="terminal-dot dot-y" aria-hidden="true"></span>
-          <span class="terminal-dot dot-g" aria-hidden="true"></span>
-          <span class="terminal-title">KubeSREAI — Incident #047</span>
-        </div>
-        <div class="terminal-body">
-          <div class="terminal-row">
-            <span class="sev-critical"><span class="pulse" aria-hidden="true">🔴</span> CRITICAL</span>
-            &nbsp;&nbsp;payment-service&nbsp;&nbsp;<span class="terminal-label">default/production</span>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap">
+        <div>
+          <span class="pill"><span class="dot" aria-hidden="true"></span>For sovereign cloud &amp; air-gapped environments</span>
+          <h1>The AI SRE that never leaves <span class="grad">your perimeter.</span></h1>
+          <p class="hero-sub">KubeSREAI finds the root cause of production incidents and proposes a safe fix, with the model, your runbooks and your telemetry all running inside your network. No internet. No external AI API. No GPU required.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary" href="mailto:jenish.mistry@kubesreai.com?subject=KubeSREAI%20briefing">Book a briefing</a>
+            <a class="btn btn-ghost" href="#how">See how it works &rarr;</a>
           </div>
-          <div class="terminal-row">
-            <span class="terminal-label">Detected:</span> CrashLoopBackOff × 6 &nbsp;│&nbsp; 02:14:33 UTC
-          </div>
-          <div class="terminal-divider"></div>
-          <div class="terminal-row">
-            <span class="terminal-label">Root cause:</span> DATABASE_URL missing after secret rotation
-          </div>
-          <div class="terminal-row">
-            <span class="terminal-label">Confidence:</span> <span class="confidence">94%</span> &nbsp;│&nbsp; <span class="terminal-label">Source:</span> pod logs + RAG + trace graph
-          </div>
-          <div class="terminal-divider"></div>
-          <div class="terminal-row">
-            <span class="terminal-label">Proposed fix:</span>
-            <div class="terminal-code">&nbsp;kubectl rollout restart deployment/payment-service<br>&nbsp;kubectl get secret db-credentials -o yaml</div>
-          </div>
-          <div class="terminal-actions">
-            <span class="term-btn approve">✓ Approve &amp; Apply</span>
-            <span class="term-btn dismiss">✗ Dismiss</span>
-            <span class="term-btn">↗ Details</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: PROBLEM -->
-  <section id="problem">
-    <div class="container">
-      <span class="eyebrow">The problem</span>
-      <h2 class="section-title">Kubernetes on-call is broken.</h2>
-      <div class="stat-row">
-        <div class="stat-card">
-          <div class="stat-num">51 min</div>
-          <div class="stat-label">median MTTR for high-impact production outages</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">70%+</div>
-          <div class="stat-label">of teams say incident response isn't fully automated</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">$300K+</div>
-          <div class="stat-label">hourly cost of downtime for most enterprises</div>
-        </div>
-      </div>
-      <p class="problem-note">Alert fatigue buries the signal, and root-cause analysis is slow because a symptom is not a cause. Generalist AI copilots make it worse — they have never seen your cluster topology, so they guess.</p>
-      <p class="stat-source">Sources: New Relic 2024 Observability Forecast; PagerDuty 2024 Cost of Incidents study; ITIC 2024 Hourly Cost of Downtime Report.</p>
-    </div>
-  </section>
-
-  <!-- SECTION: HOW IT WORKS -->
-  <section id="how-it-works">
-    <div class="container">
-      <span class="eyebrow">How it works</span>
-      <h2 class="section-title">From incident to resolution — automatically.</h2>
-      <div class="timeline">
-        <div class="step">
-          <div class="step-circle" aria-hidden="true">1</div>
-          <h3>Detect</h3>
-          <p>K8sGPT operator scans cluster state continuously. Prometheus metrics and live pod logs feed a rolling anomaly baseline.</p>
-        </div>
-        <div class="step">
-          <div class="step-circle" aria-hidden="true">2</div>
-          <h3>Root-cause</h3>
-          <p>Fine-tuned Phi-3.5-mini + RAG queries (postmortems / runbooks / K8s docs, Tempo trace graph) distinguish root cause from symptom.</p>
-        </div>
-        <div class="step">
-          <div class="step-circle" aria-hidden="true">3</div>
-          <h3>Propose</h3>
-          <p>Remediation is proposed as concrete kubectl commands, matched to the failure mode — bump memory, roll back, or restart.</p>
-        </div>
-        <div class="step">
-          <div class="step-circle" aria-hidden="true">4</div>
-          <h3>Approve &amp; Apply</h3>
-          <p>Autonomous fixes are off by default. When enabled, only allowlisted non-destructive actions run; escalations need human sign-off in the operator console or CLI.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: FEATURES -->
-  <section id="features">
-    <div class="container">
-      <span class="eyebrow">Capabilities</span>
-      <h2 class="section-title">Everything your SRE team needs. Nothing they don't.</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <h3>Proactive Detection</h3>
-          <p>Event-driven watcher triggers analysis before anyone opens a ticket. It reads K8s events and Prometheus alerts as they fire, and peer-relative z-scores rank each component against its own baseline — no static thresholds to hand-tune.</p>
-        </div>
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <h3>Root Cause, Not Symptoms</h3>
-          <p>RAG plus a fine-tuned model localises the true root cause across the service graph. It separates the failing dependency from its downstream noise.</p>
-        </div>
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
-          <h3>Self-Healing Remediation</h3>
-          <p>Identifies the failure mode and applies the least-invasive fix — bump memory, roll back, restart — then verifies the workload stays healthy before resolving, or escalates to a human. Model-guided fix choice <span class="soon">Coming soon</span>: the model helps choose the next fix from a checked set; it never runs commands itself.</p>
-        </div>
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
-          <h3>Safe by Default</h3>
-          <p>Installs in diagnose-only mode with no cluster writes. Approve and auto modes are opt-in. Every action passes one validator, only in namespaces you allow, and pods pass the Kubernetes “restricted” security profile. Ack, resolve, or approve from the operator console or CLI.</p>
-        </div>
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
-          <h3>One-Click Deploy</h3>
-          <p>One Helm chart installs the model server (llama.cpp on CPU, or vLLM on GPU), the RCA API with its built-in knowledge store, and the watcher — wired to your existing Prometheus, K8sGPT, and Tempo. Installs offline in under 10 minutes on a prepared cluster.</p>
-        </div>
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-          <h3>Air-Gapped Delivery</h3>
-          <p>One checksummed bundle with every image pinned by digest, the Helm chart, the model, an SBOM and a mirror script for any OCI registry (Harbor, Artifactory, Nexus and others). Tested with outbound traffic blocked.</p>
-        </div>
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>
-          <h3>Runs on CPU</h3>
-          <p>A quantized model in about 4 GB of RAM, with no GPU needed. On CPU an answer takes minutes, which is fine for event-driven RCA; a GPU makes it faster.</p>
-        </div>
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
-          <h3>Your Runbooks First</h3>
-          <p>Load your runbooks and wiki pages as knowledge packs. They are cited ahead of ours, fully offline.</p>
-        </div>
-        <div class="feature-card">
-          <svg class="feature-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-          <h3>Audit &amp; One Console</h3>
-          <p>An audit log of every approval and action. One login, roles per cluster and namespace, and one console across clusters <span class="soon">Coming soon</span>.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: ZERO EGRESS -->
-  <section id="zero-egress">
-    <div class="container">
-      <span class="eyebrow">Zero egress</span>
-      <h2 class="ze-title">Your data never leaves your cluster.</h2>
-      <p class="ze-sub">Not a policy. An architectural guarantee.</p>
-      <div class="ze-cols">
-        <div class="ze-col">
-          <h3>How</h3>
-          <p>The fine-tuned model runs locally (llama.cpp on CPU or vLLM on GPU) — no external model APIs, and your logs, metrics, traces, and prompts stay in-cluster. Optional outbound notifications and model-artifact pulls are off by default, so air-gapped installs send nothing.</p>
-        </div>
-        <div class="ze-col">
-          <h3>Why it matters</h3>
-          <p>Regulated industries — finance, healthcare, government — cannot send production logs to external AI APIs. This is a hard procurement requirement, not a nice-to-have.</p>
-        </div>
-        <div class="ze-col">
-          <h3>Proof</h3>
-          <p>MIT-licensed base model. Full dataset provenance on request. RBAC least-privilege service accounts.</p>
-        </div>
-      </div>
-      <div class="ze-badges">
-        <span class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Zero data egress</span>
-        <span class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> MIT-licensed model</span>
-        <span class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg> RBAC least-privilege</span>
-        <span class="badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Human approval gate</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: ARCHITECTURE -->
-  <section id="architecture">
-    <div class="container">
-      <span class="eyebrow">Architecture</span>
-      <h2 class="section-title">The full stack. In your cluster.</h2>
-      <div class="arch">
-
-        <!-- ZONE A -->
-        <div class="zone zone-a">
-          <div class="zone-label" style="color: var(--zone-coral);">Access layer</div>
-          <div class="arch-row cols-1" style="grid-template-columns:1fr;">
-            <div class="arch-box tint-coral">Operator console · CLI · Alertmanager webhook</div>
-          </div>
-          <div class="arch-row" style="grid-template-columns:1fr; margin-bottom:0;">
-            <div class="arch-box tint-coral">Console login (password + TOTP) <span class="soon">Coming soon</span><br>Per-cluster and per-namespace roles <span class="soon">Coming soon</span><br>Mutual TLS between the console and each cluster <span class="soon">Coming soon</span></div>
-          </div>
-        </div>
-        <div class="arch-arrow" aria-hidden="true">↓</div>
-
-        <!-- ZONE B -->
-        <div class="zone zone-b">
-          <div class="zone-label">Your Kubernetes Cluster</div>
-          <div class="arch-row cols-3">
-            <div class="arch-box tint-teal">K8sGPT Operator</div>
-            <div class="arch-box tint-teal">KubeSREAI Watcher</div>
-            <div class="arch-box tint-teal">Tempo (traces)</div>
-          </div>
-          <div class="arch-row cols-3">
-            <div class="arch-box tint-primary">RCA API (FastAPI)</div>
-            <div class="arch-box tint-primary">Fine-tuned Model (llama.cpp CPU / vLLM GPU)</div>
-            <div class="arch-box tint-primary">Knowledge store (your runbooks + ours)</div>
-          </div>
-          <div class="arch-row cols-2">
-            <div class="arch-box tint-muted">Tempo (PVC)</div>
-            <div class="arch-box tint-muted">Prometheus (PVC)</div>
-          </div>
-          <div class="arch-row" style="grid-template-columns:1fr; margin-bottom:0;">
-            <div class="arch-box tint-amber">Self-healing loop — diagnose → fix → verify → escalate (human approval + allowlist)</div>
-          </div>
-        </div>
-        <div class="arch-arrow" aria-hidden="true">↑↓</div>
-
-        <!-- ZONE D -->
-        <div class="zone zone-b">
-          <div class="zone-label">Multi-cluster · one hub, a light agent in each cluster <span class="soon">Coming soon</span></div>
-          <div class="arch-row" style="grid-template-columns:1fr; margin-bottom:0;">
-            <div class="arch-box tint-primary">Hub — model server + console</div>
-          </div>
-          <div class="arch-flow">↑ model calls (agents → hub) &nbsp;·&nbsp; ↓ console actions over mTLS (hub → agents)</div>
-          <div class="arch-row cols-3" style="margin-bottom:0;">
-            <div class="arch-box tint-teal">Agent · prod-east</div>
-            <div class="arch-box tint-teal">Agent · prod-west</div>
-            <div class="arch-box tint-teal">Agent · staging</div>
-          </div>
-        </div>
-        <div class="arch-arrow" aria-hidden="true">↑</div>
-
-        <!-- ZONE C -->
-        <div class="zone zone-c">
-          <div class="zone-label">Offline Training Pipeline (vendor-operated)</div>
-          <div class="arch-row" style="grid-template-columns:1fr; margin-bottom:0;">
-            <div class="arch-box">QLoRA fine-tuning · versioned model registry · Helm deploy ↑</div>
+          <div class="proof">
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Zero data egress</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Installs offline in under 10 minutes</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Runs on CPU</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Diagnose-only by default</span>
           </div>
         </div>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION: MOCK CONSOLE -->
-  <section id="console">
-    <div class="container">
-      <span class="eyebrow">Operator console</span>
-      <h2 class="section-title">The operator console. Real-time, in your cluster.</h2>
-      <div class="console">
-        <div class="console-header">
-          <span class="ch-name">KubeSREAI Console</span>
-          <span class="ch-meta">cluster: <strong>prod-east ▾</strong> <span style="opacity:.8">(prod-east · prod-west · staging)</span> <span class="soon">Coming soon</span></span>
-          <span class="status-dot pulse" aria-hidden="true"></span>
-          <span class="ch-meta">healthy</span>
-          <span class="spacer"></span>
-          <span class="ch-meta">3 active incidents</span>
-        </div>
-
-        <!-- Row 1 -->
-        <div class="incident critical">
-          <div class="inc-top">
-            <span class="inc-svc">payment-service</span>
-            <span class="inc-desc">CrashLoopBackOff</span>
-            <span class="inc-tag tag-critical">CRITICAL</span>
+        <div class="perimeter" role="img" aria-label="An example incident analysed entirely inside the customer's network, with the external AI API blocked">
+          <span class="perimeter-tag">Your network &middot; your jurisdiction</span>
+          <span class="illus">Illustrative example</span>
+          <div class="status-row">
+            <span class="status">egress <b>0 B</b></span>
+            <span class="status">model <b>local</b></span>
           </div>
-          <div class="inc-desc">Root cause: missing DATABASE_URL after secret rotation</div>
-          <div class="inc-meta">
-            <span>Confidence: 94%</span>
-            <span>·</span>
-            <span>Detected 2m ago</span>
-            <span class="inc-actions">
-              <button class="inc-btn primary">Approve Fix</button>
-              <button class="inc-btn">Dismiss</button>
-            </span>
+          <div class="card">
+            <div class="inc-head">
+              <span class="v-mono">payment-service &middot; prod</span>
+              <span class="sev">CRITICAL</span>
+            </div>
+            <div class="inc-body">
+              <div>
+                <div class="k">Symptom</div>
+                <div class="v-mono">CrashLoopBackOff &times; 6 &nbsp;&middot;&nbsp; 02:14 UTC</div>
+              </div>
+              <div>
+                <div class="k">Traced to</div>
+                <div class="chain">
+                  <span class="n">web</span><span class="a">&rarr;</span>
+                  <span class="n">api-gateway</span><span class="a">&rarr;</span>
+                  <span class="n">payment-service</span><span class="a">&rarr;</span>
+                  <span class="n root">db-credentials</span>
+                </div>
+              </div>
+              <div>
+                <div class="k">Root cause</div>
+                <div>DATABASE_URL missing after a secret rotation. Cites your runbook: Secret rotation.</div>
+              </div>
+              <div>
+                <div class="k">Proposed fix &middot; awaiting approval</div>
+                <div class="fix">restore secret key &rarr; restart payment-service &rarr; verify</div>
+              </div>
+            </div>
+            <div class="inc-foot" aria-hidden="true">
+              <span class="mini ok">Approve</span>
+              <span class="mini no">Escalate</span>
+            </div>
           </div>
-        </div>
-
-        <!-- RCA accordion for Row 1 -->
-        <button class="rca-toggle" id="rca-toggle-1" aria-expanded="false" aria-controls="rca-panel-1">
-          <span class="chev" aria-hidden="true">▸</span> Root-cause analysis · payment-service
-        </button>
-        <div class="rca-panel" id="rca-panel-1" role="region" aria-labelledby="rca-toggle-1">
-          <h4>Affected service graph</h4>
-          <div class="graph-row">
-            <span class="graph-node">web-frontend</span>
-            <span class="graph-arrow" aria-hidden="true">→</span>
-            <span class="graph-node">api-gateway</span>
-            <span class="graph-arrow" aria-hidden="true">→</span>
-            <span class="graph-node root">payment-service</span>
-            <span class="graph-arrow" aria-hidden="true">→</span>
-            <span class="graph-node">db-credentials (secret)</span>
-          </div>
-          <h4>Proposed remediation</h4>
-          <div class="code-block">kubectl rollout restart deployment/payment-service
-kubectl get secret db-credentials -o yaml</div>
-          <span class="status-badge">● Awaiting approval</span>
-        </div>
-
-        <!-- Row 2 -->
-        <div class="incident warning">
-          <div class="inc-top">
-            <span class="inc-svc">api-gateway</span>
-            <span class="inc-desc">High memory usage</span>
-            <span class="inc-tag tag-warning">WARNING</span>
-          </div>
-          <div class="inc-desc">Anomaly detected: memory 340% above 7-day baseline</div>
-          <div class="inc-meta">
-            <span>Confidence: 81%</span>
-            <span>·</span>
-            <span>Detected 8m ago</span>
-            <span class="inc-actions">
-              <button class="inc-btn">View Details</button>
-              <button class="inc-btn">Snooze</button>
-            </span>
+          <div class="outside">
+            <span>Outside the perimeter</span>
+            <span class="blocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>External AI API</span>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SECTION: PRICING -->
-  <section id="pricing">
-    <div class="container">
-      <span class="eyebrow">Pricing</span>
-      <h2 class="section-title">Pricing that fits how you run Kubernetes.</h2>
-      <p class="section-lead">Self-hosted only. Everything runs inside your network, on your CPUs or GPUs. Your telemetry never leaves it and never reaches a third-party model API.</p>
-      <div class="pricing-grid">
-
-        <!-- Tier 1 — Self-hosted license (per company, in-cluster) — featured -->
-        <div class="price-card featured">
-          <span class="price-flag">Recommended</span>
-          <h3 class="price-name">Self-hosted</h3>
-          <div class="price-amount">Contact us</div>
-          <p class="price-desc">An annual license per company, tiered by company size — not per cluster. Everything runs in your cluster; nothing leaves your environment.</p>
-          <ul class="price-features">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Fully in-cluster — zero data egress</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Runs on CPU, no GPU required (GPU optional for speed)</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> One console for all your clusters <span class="soon">Coming soon</span></li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Detection, root-cause, and approval workflow</li>
-          </ul>
-          <a class="btn btn-primary" href="#cta">Request Access</a>
+    <!-- WHY OFFLINE -->
+    <section id="why">
+      <div class="wrap">
+        <span class="eyebrow">Why offline</span>
+        <h2 class="h2">Hosted AI SRE is a non-starter where data can't leave.</h2>
+        <p class="lead">Incident data is some of the most sensitive data you have: logs, configs, service maps and secrets in stack traces. The teams with the most to lose from an outage are the ones who can't hand it to a cloud AI tool.</p>
+        <div class="why-grid">
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div>
+            <h3>Data residency</h3>
+            <p>Sovereignty rules keep data inside the country, and often inside your own tenancy. A tool that ships telemetry to a vendor's cloud fails the review.</p>
+          </div>
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2l20 20M8.5 16.5a5 5 0 0 1 7 0M2 8.8a15 15 0 0 1 4.2-2.6M10.7 5.1A15 15 0 0 1 22 8.8M5 12.9a10 10 0 0 1 5.2-2.7M18.9 12.9a10 10 0 0 0-1.6-1.2M12 20h.01"/></svg></div>
+            <h3>No route out</h3>
+            <p>Air-gapped networks have no internet at all. SaaS agents can't install, can't reach their model, and can't be updated online.</p>
+          </div>
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <h3>No standing vendor access</h3>
+            <p>Security teams won't give an outside service standing access to production. Investigation and fixes have to run under your own controls.</p>
+          </div>
+        </div>
+        <div class="stat-band">
+          <div class="stat-num grad">$80B</div>
+          <div>
+            <p>Gartner expects worldwide sovereign cloud infrastructure (IaaS) spending to reach about $80 billion in 2026, mostly from governments. Every one of those environments needs operating, and many of them can't send that work to a hosted AI.</p>
+            <p class="src">Source: Gartner press release, February 2026.</p>
+          </div>
         </div>
 
-        <!-- Tier 2 — Enterprise / air-gapped (contact) -->
-        <div class="price-card">
-          <h3 class="price-name">Enterprise &amp; air-gapped</h3>
-          <div class="price-amount">Let's talk</div>
-          <p class="price-desc">For teams with air-gap, security-review, and procurement needs.</p>
-          <ul class="price-features">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Everything in Self-hosted</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Air-gapped / fully offline deployment</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Security review and procurement support</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Offline support (support bundles, on-site or escorted sessions)</li>
-          </ul>
-          <a class="btn btn-ghost" href="mailto:jenishmistry2911@gmail.com?subject=KubeSREAI%20Enterprise%20inquiry">Contact Sales</a>
+        <div class="compare" role="table" aria-label="Hosted AI SRE compared with KubeSREAI">
+          <div class="row" role="row"><div role="columnheader"></div><div role="columnheader">Hosted AI SRE</div><div role="columnheader">KubeSREAI</div></div>
+          <div class="row" role="row"><div role="cell">Where your telemetry goes</div><div role="cell">The vendor's cloud</div><div role="cell">Stays inside your network</div></div>
+          <div class="row" role="row"><div role="cell">Internet connection</div><div role="cell">Typically required</div><div role="cell">Not required, fully air-gapped</div></div>
+          <div class="row" role="row"><div role="cell">AI model</div><div role="cell">Usually a third-party model API</div><div role="cell">Fine-tuned model, running locally</div></div>
+          <div class="row" role="row"><div role="cell">Hardware</div><div role="cell">Vendor's infrastructure</div><div role="cell">Your CPUs; GPU optional</div></div>
+          <div class="row" role="row"><div role="cell">Changes to production</div><div role="cell">Varies by vendor</div><div role="cell">Approved actions only, under your policy</div></div>
+          <div class="row" role="row"><div role="cell">Delivery</div><div role="cell">SaaS onboarding</div><div role="cell">One offline bundle you can scan and mirror</div></div>
         </div>
-
       </div>
-      <p class="price-note">Licensed per company and sized to your environment. Contact us for terms.</p>
-    </div>
-  </section>
+    </section>
 
-  <!-- SECTION: CTA BAND -->
-  <section id="cta">
-    <div class="container">
-      <h2>Get early access.</h2>
-      <p>Now taking our first design partners.</p>
-      <div class="cta-actions">
-        <a class="btn btn-primary" href="mailto:jenishmistry2911@gmail.com?subject=KubeSREAI%20Early%20Access">Request Access</a>
+    <!-- HOW IT WORKS -->
+    <section id="how" style="background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+      <div class="wrap">
+        <span class="eyebrow">How it works</span>
+        <h2 class="h2">From alert to root cause to an approved fix.</h2>
+        <p class="lead">KubeSREAI does the first hour of an incident for you, from the moment something breaks to a fix you can approve.</p>
+        <div class="steps">
+          <div class="step">
+            <h3>Detect</h3>
+            <p>Watches your clusters and alerts continuously, and opens an investigation the moment something fails.</p>
+          </div>
+          <div class="step">
+            <h3>Investigate</h3>
+            <p>Pulls the metrics, logs and traces around the incident and follows the dependency chain to separate the cause from the symptoms.</p>
+          </div>
+          <div class="step">
+            <h3>Explain</h3>
+            <p>A fine-tuned local model writes the root cause in plain language, citing your own runbooks and past incidents first.</p>
+          </div>
+          <div class="step">
+            <h3>Fix, with approval</h3>
+            <p>Proposes a fix from a list of approved actions, applies it only under your policy, verifies the result, and escalates to a person when unsure.</p>
+          </div>
+        </div>
+        <div class="modes">You choose how much it does:
+          <span class="chip">Diagnose only</span><span class="chip">Approve each action</span><span class="chip">Auto, within policy</span>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- SECTION: FOOTER -->
-  <footer id="footer">
-    <div class="container">
+    <!-- COVERAGE -->
+    <section id="coverage">
+      <div class="wrap">
+        <span class="eyebrow">Coverage</span>
+        <h2 class="h2">Starts with Kubernetes. Built for the whole estate.</h2>
+        <p class="lead">Sovereign and air-gapped estates are never one platform. Real incidents cross layers, and every layer gets the same offline loop and the same approval gate.</p>
+        <div class="cov">
+          <div class="cov-card now">
+            <span class="badge now">Available now</span>
+            <h3>Kubernetes</h3>
+            <p>The full loop, end to end, on your clusters.</p>
+            <ul class="checks">
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Failing workloads detected and investigated automatically</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Root cause across the service graph, not just the symptom</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Approved fixes: raise a memory limit, roll back, restart, scale</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Console with chat, reports and a full audit log</li>
+            </ul>
+          </div>
+          <div class="cov-card">
+            <span class="badge next">Roadmap</span>
+            <h3>The rest of your estate</h3>
+            <p>The same loop for the systems around your clusters, so one investigation can follow an incident across layers.</p>
+            <div class="chips">
+              <span class="chip first">Linux servers</span><span class="chip first">Databases</span><span class="chip">VMs &amp; hypervisors</span><span class="chip">Network gear</span><span class="chip">CI/CD</span><span class="chip">Infrastructure as code</span>
+            </div>
+            <p class="note">Linux servers and databases come first. Network and database changes will always require a person's approval.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ARCHITECTURE (high level) -->
+    <section id="architecture" style="padding-top: 0;">
+      <div class="wrap">
+        <span class="eyebrow">Architecture</span>
+        <h2 class="h2">Everything runs inside your perimeter.</h2>
+        <p class="lead">On-prem, in a private cloud, or in a sovereign cloud region: one install, nothing calling out.</p>
+        <div class="arch">
+          <span class="arch-tag">Your environment</span>
+          <div class="arch-grid">
+            <div class="arch-col">
+              <h3>Your signals</h3>
+              <ul><li>Metrics</li><li>Logs</li><li>Traces</li><li>Alerts &amp; events</li></ul>
+            </div>
+            <div class="arrow" aria-hidden="true">&rarr;</div>
+            <div class="arch-col core">
+              <h3>KubeSREAI</h3>
+              <ul><li>Local fine-tuned model</li><li>Your runbooks &amp; incident history</li><li>Policy and approval gate</li></ul>
+            </div>
+            <div class="arrow" aria-hidden="true">&rarr;</div>
+            <div class="arch-col">
+              <h3>Your team</h3>
+              <ul><li>Console &amp; chat</li><li>Approvals</li><li>Audit log</li></ul>
+            </div>
+          </div>
+          <div class="arch-out">
+            <span>Leaves your environment:</span>
+            <span class="blocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Telemetry</span>
+            <span class="blocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Prompts</span>
+            <span class="blocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Model calls</span>
+          </div>
+        </div>
+        <p class="note">One console across many clusters <span class="soon">Coming soon</span></p>
+      </div>
+    </section>
+
+    <!-- SECURITY & PROCUREMENT -->
+    <section id="security" style="background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);">
+      <div class="wrap">
+        <span class="eyebrow">Security &amp; procurement</span>
+        <h2 class="h2">Built for your security review.</h2>
+        <p class="lead">What your security and procurement teams will ask for is part of the product, not an afterthought.</p>
+        <div class="sec-grid">
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></div>
+            <h3>One offline bundle</h3>
+            <p>Every image pinned by digest, the model, an SBOM, a vulnerability scan and checksums, plus a script to mirror it into your own registry. SBOM available on request.</p>
+          </div>
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2l20 20M17 17H7a5 5 0 0 1-1.5-9.8M9.6 4.4A7 7 0 0 1 19 9a4 4 0 0 1 2.3 7.2"/></svg></div>
+            <h3>No phone-home</h3>
+            <p>No external model API and no vendor telemetry. Optional outbound features are off by default, so an air-gapped install sends nothing.</p>
+          </div>
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>Least privilege</h3>
+            <p>Restricted pod security, permissions scoped to the namespaces you allow, and network policies around its components.</p>
+          </div>
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+            <h3>Human in the loop</h3>
+            <p>Installs in diagnose-only mode. Every action is checked against your policy, and an approved action can't run twice.</p>
+          </div>
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg></div>
+            <h3>Full audit trail</h3>
+            <p>Every approval and action is logged with secrets masked. Password and TOTP login with per-cluster roles <span class="soon">Coming soon</span></p>
+          </div>
+          <div class="tile">
+            <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/></svg></div>
+            <h3>Your knowledge first</h3>
+            <p>Load your runbooks and wiki pages as knowledge packs. They're cited ahead of anything we ship, and they never leave your network.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="wrap">
+        <span class="eyebrow">Pricing</span>
+        <h2 class="h2">One license per company.</h2>
+        <div class="price">
+          <div class="left">
+            <h3>Not per cluster. Not per server.</h3>
+            <p>An annual self-hosted license, sized to your organization, so you're never penalised for covering more of your estate. Terms are set with each customer.</p>
+            <div class="hero-ctas"><a class="btn btn-primary" href="mailto:jenish.mistry@kubesreai.com?subject=KubeSREAI%20pricing">Talk to us</a></div>
+          </div>
+          <div class="right">
+            <ul class="checks">
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Self-hosted only: on-prem, private or sovereign cloud</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Fully air-gapped deployment</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Runs on CPU; GPU optional for speed</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Security-review and procurement support</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Offline support: support bundles and on-site or escorted sessions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section class="closing">
+      <div class="wrap">
+        <div class="box">
+          <div>
+            <h2>Running sovereign or air-gapped infrastructure?</h2>
+            <p>We're working with a small number of design partners. Start in diagnose-only mode and see the root cause of your own incidents.</p>
+          </div>
+          <a class="btn btn-primary" href="mailto:jenish.mistry@kubesreai.com?subject=KubeSREAI%20design%20partner">Become a design partner</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
       <div class="footer-grid">
         <div class="footer-col">
-          <span class="wordmark">KubeSREAI</span>
-          <p>A self-hosted AI SRE for Kubernetes.</p>
+          <a class="brand" href="#top"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#818CF8"/><stop offset="1" stop-color="#2DD4BF"/></linearGradient></defs><path d="M16 5.5 L24.5 8.8 V15.2 C24.5 20.6 20.9 24.5 16 26.5 C11.1 24.5 7.5 20.6 7.5 15.2 V8.8 Z" fill="url(#g2)" fill-opacity="0.14" stroke="url(#g2)" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 16.2 H12.8 L14.6 12 L17.2 20.4 L19 16.2 H22" fill="none" stroke="#F3F2EF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>KubeSREAI</a>
+          <p>Offline AI SRE for sovereign cloud and air-gapped systems.</p>
         </div>
         <div class="footer-col">
           <h4>Product</h4>
           <div class="footer-links">
-            <a href="#how-it-works">How It Works</a>
+            <a href="#why">Why offline</a>
+            <a href="#how">How it works</a>
+            <a href="#coverage">Coverage</a>
             <a href="#architecture">Architecture</a>
-            <a href="#zero-egress">Zero Egress</a>
+            <a href="#security">Security</a>
             <a href="#pricing">Pricing</a>
           </div>
         </div>
         <div class="footer-col">
           <h4>About</h4>
-          <p>Model weights trained on MIT-licensed data. Reference corpora used under their respective licenses.</p>
-          <p style="margin-top:var(--space-3);">Contact: <a href="mailto:jenishmistry2911@gmail.com">jenishmistry2911@gmail.com</a></p>
+          <p>Model weights trained on MIT-licensed data.</p>
+          <p class="contact">Contact: <a href="mailto:jenish.mistry@kubesreai.com">jenish.mistry@kubesreai.com</a></p>
         </div>
       </div>
-      <div class="footer-bottom">
-        © 2026 KubeSREAI. All rights reserved.
-      </div>
+      <div class="footer-bottom">&copy; 2026 KubeSREAI. All rights reserved.</div>
     </div>
   </footer>
 
-  <script>
-    (function () {
-      // --- Nav: border-on-scroll ---
-      var nav = document.getElementById('nav');
-      function onScroll() {
-        if (window.scrollY > 8) { nav.classList.add('scrolled'); }
-        else { nav.classList.remove('scrolled'); }
-      }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-
-      // --- Mobile menu toggle ---
-      var hamburger = document.getElementById('hamburger');
-      var mobileMenu = document.getElementById('mobile-menu');
-      var mobileClose = document.getElementById('mobile-close');
-      function openMenu() {
-        mobileMenu.classList.add('open');
-        hamburger.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeMenu() {
-        mobileMenu.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      }
-      hamburger.addEventListener('click', openMenu);
-      mobileClose.addEventListener('click', closeMenu);
-      mobileMenu.querySelectorAll('[data-close]').forEach(function (a) {
-        a.addEventListener('click', closeMenu);
-      });
-
-      // --- RCA accordion ---
-      var rcaToggle = document.getElementById('rca-toggle-1');
-      var rcaPanel = document.getElementById('rca-panel-1');
-      rcaToggle.addEventListener('click', function () {
-        var expanded = rcaToggle.getAttribute('aria-expanded') === 'true';
-        rcaToggle.setAttribute('aria-expanded', String(!expanded));
-        rcaPanel.classList.toggle('open', !expanded);
-      });
-
-    })();
-  </script>
 </body>
 </html>
