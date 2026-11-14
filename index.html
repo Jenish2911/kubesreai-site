@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KubeSREAI — Offline AI SRE for sovereign cloud and air-gapped systems</title>
-  <meta name="description" content="KubeSREAI is an offline AI SRE for sovereign cloud and air-gapped environments. It finds the root cause of production incidents and proposes safe, approved fixes, with the model and your data staying inside your network.">
+  <title>KubeSREAI — An AI SRE for your whole estate, inside your own network</title>
+  <meta name="description" content="An AI SRE for your whole estate, inside your own network. It starts with Kubernetes. Designed so your data stays in your network, even with no internet connection. It finds the root cause of an incident and proposes a fix that waits for your approval.">
 
   <!-- Favicon: final KubeSREAI mark (files ship beside index.html; build.py copies them). -->
   <link rel="icon" href="/favicon.ico" sizes="any">
@@ -14,14 +14,14 @@
   <!-- Open Graph / Twitter: og.png ships alongside index.html (build.py copies it). -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.kubesreai.com/">
-  <meta property="og:title" content="KubeSREAI — Offline AI SRE for sovereign cloud and air-gapped systems">
-  <meta property="og:description" content="Root causes and safe, approved fixes for production incidents, entirely inside your network. No internet, no external AI API, no GPU required.">
+  <meta property="og:title" content="KubeSREAI — An AI SRE for your whole estate, inside your own network">
+  <meta property="og:description" content="An AI SRE for your whole estate, inside your own network. It starts with Kubernetes. Designed so your data stays in your network, even with no internet connection.">
   <meta property="og:image" content="https://www.kubesreai.com/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="KubeSREAI — Offline AI SRE for sovereign cloud and air-gapped systems">
-  <meta name="twitter:description" content="Root causes and safe, approved fixes for production incidents, entirely inside your network. No internet, no external AI API, no GPU required.">
+  <meta name="twitter:title" content="KubeSREAI — An AI SRE for your whole estate, inside your own network">
+  <meta name="twitter:description" content="An AI SRE for your whole estate, inside your own network. It starts with Kubernetes. Designed so your data stays in your network, even with no internet connection.">
   <meta name="twitter:image" content="https://www.kubesreai.com/og.png">
 
   <!-- Inter is self-hosted: subset woff2 embedded as base64 (font_faces). Zero external requests. -->
@@ -314,7 +314,7 @@
     <div class="wrap">
       <a class="brand" href="#top" aria-label="KubeSREAI home"><svg width="30" height="30" viewBox="0 0 512 512" aria-hidden="true"><path d="M256,80 L398,156 L398,276 C398,352 336,404 256,434 C176,404 114,352 114,276 L114,156 Z" fill="none" stroke="#2DD4BF" stroke-width="28" stroke-linejoin="round"/><polyline points="158,272 202,272 228,214 264,322 292,242 312,272 354,272" fill="none" stroke="#F8FAFC" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(330,176) scale(0.7)"><path d="M0,-34 C4,-8 8,-4 34,0 C8,4 4,8 0,34 C-4,8 -8,4 -34,0 C-8,-4 -4,-8 0,-34 Z" fill="#2DD4BF"/></g></svg>KubeSREAI</a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="#why">Why offline</a>
+        <a href="#why">Why inside your network</a>
         <a href="#how">How it works</a>
         <a href="#coverage">Coverage</a>
         <a href="#security">Security</a>
@@ -331,64 +331,47 @@
     <section class="hero">
       <div class="wrap">
         <div>
-          <span class="pill"><span class="dot" aria-hidden="true"></span>For sovereign cloud &amp; air-gapped environments</span>
-          <h1>The AI SRE that never leaves <span class="grad">your perimeter.</span></h1>
-          <p class="hero-sub">KubeSREAI finds the root cause of production incidents and proposes a safe fix, with the model, your runbooks and your telemetry all running inside your network. No internet. No external AI API. No GPU required.</p>
+          <span class="pill"><span class="dot" aria-hidden="true"></span>Pre-release &middot; looking for design partners</span>
+          <h1>An AI SRE for your whole estate, <span class="grad">inside your own network.</span></h1>
+          <p class="hero-sub">KubeSREAI starts with Kubernetes, where it works today. It finds the root cause of an incident and proposes a fix, and nothing changes until a person approves it. It keeps working with no internet connection. Servers, databases, virtual machines, network devices, CI/CD pipelines and infrastructure code are planned. A person will always approve changes to databases and network devices.</p>
           <div class="hero-ctas">
             <a class="btn btn-primary" href="mailto:hello@kubesreai.com?subject=KubeSREAI%20briefing">Book a briefing</a>
             <a class="btn btn-ghost" href="#how">See how it works &rarr;</a>
           </div>
           <div class="proof">
-            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Zero data egress</span>
-            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Installs offline in under 10 minutes</span>
-            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Runs on CPU</span>
-            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Diagnose-only by default</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Designed so your data stays in your network</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Works with no internet connection</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Runs on regular CPUs, and on GPUs for faster answers</span>
+            <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>A person approves every change</span>
           </div>
         </div>
 
-        <div class="perimeter" role="img" aria-label="An example incident analysed entirely inside the customer's network, with the external AI API blocked">
-          <span class="perimeter-tag">Your network &middot; your jurisdiction</span>
+        <div class="perimeter" role="img" aria-label="An illustrative incident: the loudest alert is a symptom, the root cause is found, and a fix waits for approval">
+          <span class="perimeter-tag">Inside your network</span>
           <span class="illus">Illustrative example</span>
-          <div class="status-row">
-            <span class="status">egress <b>0 B</b></span>
-            <span class="status">model <b>local</b></span>
-          </div>
           <div class="card">
             <div class="inc-head">
-              <span class="v-mono">payment-service &middot; prod</span>
+              <span class="v-mono">Checkout &middot; production</span>
               <span class="sev">CRITICAL</span>
             </div>
             <div class="inc-body">
               <div>
-                <div class="k">Symptom</div>
-                <div class="v-mono">CrashLoopBackOff &times; 6 &nbsp;&middot;&nbsp; 02:14 UTC</div>
-              </div>
-              <div>
-                <div class="k">Traced to</div>
-                <div class="chain">
-                  <span class="n">web</span><span class="a">&rarr;</span>
-                  <span class="n">api-gateway</span><span class="a">&rarr;</span>
-                  <span class="n">payment-service</span><span class="a">&rarr;</span>
-                  <span class="n root">db-credentials</span>
-                </div>
+                <div class="k">Loudest alert</div>
+                <div>Checkout is failing for customers.</div>
               </div>
               <div>
                 <div class="k">Root cause</div>
-                <div>DATABASE_URL missing after a secret rotation. Cites your runbook: Secret rotation.</div>
+                <div>A change in a service it depends on, not checkout itself. Cites your own runbook.</div>
               </div>
               <div>
                 <div class="k">Proposed fix &middot; awaiting approval</div>
-                <div class="fix">restore secret key &rarr; restart payment-service &rarr; verify</div>
+                <div class="fix">Restore the previous setting, then check that it worked</div>
               </div>
             </div>
             <div class="inc-foot" aria-hidden="true">
               <span class="mini ok">Approve</span>
               <span class="mini no">Escalate</span>
             </div>
-          </div>
-          <div class="outside">
-            <span>Outside the perimeter</span>
-            <span class="blocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>External AI API</span>
           </div>
         </div>
       </div>
@@ -397,7 +380,7 @@
     <!-- WHY OFFLINE -->
     <section id="why">
       <div class="wrap">
-        <span class="eyebrow">Why offline</span>
+        <span class="eyebrow">Why inside your network</span>
         <h2 class="h2">Hosted AI SRE is a non-starter where data can't leave.</h2>
         <p class="lead">Incident data is some of the most sensitive data you have: logs, configs, service maps and secrets in stack traces. The teams with the most to lose from an outage are the ones who can't hand it to a cloud AI tool.</p>
         <div class="why-grid">
@@ -417,22 +400,14 @@
             <p>Security teams won't give an outside service standing access to production. Investigation and fixes have to run under your own controls.</p>
           </div>
         </div>
-        <div class="stat-band">
-          <div class="stat-num grad">$80B</div>
-          <div>
-            <p>Gartner expects worldwide sovereign cloud infrastructure (IaaS) spending to reach about $80 billion in 2026, mostly from governments. Every one of those environments needs operating, and many of them can't send that work to a hosted AI.</p>
-            <p class="src">Source: Gartner press release, February 2026.</p>
-          </div>
-        </div>
-
         <div class="compare" role="table" aria-label="Hosted AI SRE compared with KubeSREAI">
           <div class="row" role="row"><div role="columnheader"></div><div role="columnheader">Hosted AI SRE</div><div role="columnheader">KubeSREAI</div></div>
-          <div class="row" role="row"><div role="cell">Where your telemetry goes</div><div role="cell">The vendor's cloud</div><div role="cell">Stays inside your network</div></div>
-          <div class="row" role="row"><div role="cell">Internet connection</div><div role="cell">Typically required</div><div role="cell">Not required, fully air-gapped</div></div>
-          <div class="row" role="row"><div role="cell">AI model</div><div role="cell">Usually a third-party model API</div><div role="cell">Fine-tuned model, running locally</div></div>
-          <div class="row" role="row"><div role="cell">Hardware</div><div role="cell">Vendor's infrastructure</div><div role="cell">Your CPUs; GPU optional</div></div>
-          <div class="row" role="row"><div role="cell">Changes to production</div><div role="cell">Varies by vendor</div><div role="cell">Approved actions only, under your policy</div></div>
-          <div class="row" role="row"><div role="cell">Delivery</div><div role="cell">SaaS onboarding</div><div role="cell">One offline bundle you can scan and mirror</div></div>
+          <div class="row" role="row"><div role="cell">Where your telemetry goes</div><div role="cell">The vendor's cloud</div><div role="cell">Designed to stay inside your network</div></div>
+          <div class="row" role="row"><div role="cell">Internet connection</div><div role="cell">Typically required</div><div role="cell">Not required; works in air-gapped environments</div></div>
+          <div class="row" role="row"><div role="cell">AI model</div><div role="cell">Usually a third-party model API</div><div role="cell">Runs inside your network, no external AI service</div></div>
+          <div class="row" role="row"><div role="cell">Hardware</div><div role="cell">Vendor's infrastructure</div><div role="cell">Runs on regular CPUs, and on GPUs for faster answers</div></div>
+          <div class="row" role="row"><div role="cell">Changes to production</div><div role="cell">Varies by vendor</div><div role="cell">A person approves before anything changes</div></div>
+          <div class="row" role="row"><div role="cell">Delivery</div><div role="cell">SaaS onboarding</div><div role="cell">Releases can be verified before installing</div></div>
         </div>
       </div>
     </section>
@@ -442,27 +417,27 @@
       <div class="wrap">
         <span class="eyebrow">How it works</span>
         <h2 class="h2">From alert to root cause to an approved fix.</h2>
-        <p class="lead">KubeSREAI does the first hour of an incident for you, from the moment something breaks to a fix you can approve.</p>
+        <p class="lead">KubeSREAI does the first pass of an incident for you, from the moment something breaks to a fix you can approve.</p>
         <div class="steps">
           <div class="step">
             <h3>Detect</h3>
-            <p>Watches your clusters and alerts continuously, and opens an investigation the moment something fails.</p>
+            <p>Watches your clusters and opens an investigation when something fails.</p>
           </div>
           <div class="step">
             <h3>Investigate</h3>
-            <p>Pulls the metrics, logs and traces around the incident and follows the dependency chain to separate the cause from the symptoms.</p>
+            <p>Gathers the evidence around the incident and separates the real cause from the symptoms.</p>
           </div>
           <div class="step">
             <h3>Explain</h3>
-            <p>A fine-tuned local model writes the root cause in plain language, citing your own runbooks and past incidents first.</p>
+            <p>Writes the root cause in plain language, using your own runbooks and postmortems first.</p>
           </div>
           <div class="step">
             <h3>Fix, with approval</h3>
-            <p>Proposes a fix from a list of approved actions, applies it only under your policy, verifies the result, and escalates to a person when unsure.</p>
+            <p>Proposes a fix and waits for a person to approve it. Then checks that it worked, and hands back to a person if it didn't.</p>
           </div>
         </div>
         <div class="modes">You choose how much it does:
-          <span class="chip">Diagnose only</span><span class="chip">Approve each action</span><span class="chip">Auto, within policy</span>
+          <span class="chip">Diagnose only</span><span class="chip">Approve each action</span>
         </div>
       </div>
     </section>
@@ -471,65 +446,36 @@
     <section id="coverage">
       <div class="wrap">
         <span class="eyebrow">Coverage</span>
-        <h2 class="h2">Starts with Kubernetes. Built for the whole estate.</h2>
-        <p class="lead">Sovereign and air-gapped estates are never one platform. Real incidents cross layers, and every layer gets the same offline loop and the same approval gate.</p>
+        <h2 class="h2">Starts with Kubernetes. Planned for the whole estate.</h2>
+        <p class="lead">Real incidents cross layers. The goal is one AI SRE for the whole estate, running inside your own network. Kubernetes is the first layer.</p>
         <div class="cov">
           <div class="cov-card now">
-            <span class="badge now">Available now</span>
+            <span class="badge now">Works today</span>
             <h3>Kubernetes</h3>
-            <p>The full loop, end to end, on your clusters.</p>
+            <p>An AI SRE for Kubernetes, for incidents on your clusters.</p>
             <ul class="checks">
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Failing workloads detected and investigated automatically</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Root cause across the service graph, not just the symptom</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Approved fixes: raise a memory limit, roll back, restart, scale</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Console with chat, reports and a full audit log</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Finds the root cause, including when the loudest alert is only a symptom</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Proposes a fix, waits for your approval, then checks that it worked</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Uses your own runbooks and postmortems</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>One console covers all your clusters</li>
             </ul>
           </div>
           <div class="cov-card">
-            <span class="badge next">Roadmap</span>
+            <span class="badge next">Planned</span>
             <h3>The rest of your estate</h3>
-            <p>The same loop for the systems around your clusters, so one investigation can follow an incident across layers.</p>
+            <p>The same approach for the systems around your clusters, in this order.</p>
             <div class="chips">
-              <span class="chip first">Linux servers</span><span class="chip first">Databases</span><span class="chip">VMs &amp; hypervisors</span><span class="chip">Network gear</span><span class="chip">CI/CD</span><span class="chip">Infrastructure as code</span>
+              <span class="chip first">1 &middot; Servers and databases</span>
             </div>
-            <p class="note">Linux servers and databases come first. Network and database changes will always require a person's approval.</p>
+            <div class="chips" style="margin-top: 8px;">
+              <span class="chip">2 &middot; Virtual machines and network devices</span>
+            </div>
+            <div class="chips" style="margin-top: 8px;">
+              <span class="chip">3 &middot; CI/CD pipelines and infrastructure code</span>
+            </div>
+            <p class="note">These are plans, not features available today. A person will always approve changes to databases and network devices.</p>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- ARCHITECTURE (high level) -->
-    <section id="architecture" style="padding-top: 0;">
-      <div class="wrap">
-        <span class="eyebrow">Architecture</span>
-        <h2 class="h2">Everything runs inside your perimeter.</h2>
-        <p class="lead">On-prem, in a private cloud, or in a sovereign cloud region: one install, nothing calling out.</p>
-        <div class="arch">
-          <span class="arch-tag">Your environment</span>
-          <div class="arch-grid">
-            <div class="arch-col">
-              <h3>Your signals</h3>
-              <ul><li>Metrics</li><li>Logs</li><li>Traces</li><li>Alerts &amp; events</li></ul>
-            </div>
-            <div class="arrow" aria-hidden="true">&rarr;</div>
-            <div class="arch-col core">
-              <h3>KubeSREAI</h3>
-              <ul><li>Local fine-tuned model</li><li>Your runbooks &amp; incident history</li><li>Policy and approval gate</li></ul>
-            </div>
-            <div class="arrow" aria-hidden="true">&rarr;</div>
-            <div class="arch-col">
-              <h3>Your team</h3>
-              <ul><li>Console &amp; chat</li><li>Approvals</li><li>Audit log</li></ul>
-            </div>
-          </div>
-          <div class="arch-out">
-            <span>Leaves your environment:</span>
-            <span class="blocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Telemetry</span>
-            <span class="blocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Prompts</span>
-            <span class="blocked"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>Model calls</span>
-          </div>
-        </div>
-        <p class="note">One console across many clusters <span class="soon">Coming soon</span></p>
       </div>
     </section>
 
@@ -542,33 +488,33 @@
         <div class="sec-grid">
           <div class="tile">
             <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg></div>
-            <h3>One offline bundle</h3>
-            <p>Every image pinned by digest, the model, an SBOM, a vulnerability scan and checksums, plus a script to mirror it into your own registry. SBOM available on request.</p>
+            <h3>Verifiable releases</h3>
+            <p>Releases can be verified before installing.</p>
           </div>
           <div class="tile">
             <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 2l20 20M17 17H7a5 5 0 0 1-1.5-9.8M9.6 4.4A7 7 0 0 1 19 9a4 4 0 0 1 2.3 7.2"/></svg></div>
-            <h3>No phone-home</h3>
-            <p>No external model API and no vendor telemetry. Optional outbound features are off by default, so an air-gapped install sends nothing.</p>
+            <h3>Your data stays with you</h3>
+            <p>Designed so your logs, metrics and incident data stay inside your network, without calling any external AI service.</p>
           </div>
           <div class="tile">
             <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-            <h3>Least privilege</h3>
-            <p>Restricted pod security, permissions scoped to the namespaces you allow, and network policies around its components.</p>
+            <h3>Scoped access</h3>
+            <p>Works only in the areas you allow.</p>
           </div>
           <div class="tile">
             <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
             <h3>Human in the loop</h3>
-            <p>Installs in diagnose-only mode. Every action is checked against your policy, and an approved action can't run twice.</p>
+            <p>Proposes a fix and waits for a person to approve it. Checks that the fix worked, and hands back to a person if it didn't.</p>
           </div>
           <div class="tile">
             <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8"/></svg></div>
             <h3>Full audit trail</h3>
-            <p>Every approval and action is logged with secrets masked. Password and TOTP login with per-cluster roles <span class="soon">Coming soon</span></p>
+            <p>Every approval and action is recorded.</p>
           </div>
           <div class="tile">
             <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15z"/></svg></div>
             <h3>Your knowledge first</h3>
-            <p>Load your runbooks and wiki pages as knowledge packs. They're cited ahead of anything we ship, and they never leave your network.</p>
+            <p>Uses your own runbooks and postmortems, ahead of anything built in.</p>
           </div>
         </div>
       </div>
@@ -581,17 +527,17 @@
         <h2 class="h2">One license per company.</h2>
         <div class="price">
           <div class="left">
-            <h3>Not per cluster. Not per server.</h3>
-            <p>An annual self-hosted license, sized to your organization, so you're never penalised for covering more of your estate. Terms are set with each customer.</p>
-            <div class="hero-ctas"><a class="btn btn-primary" href="mailto:hello@kubesreai.com?subject=KubeSREAI%20pricing">Talk to us</a></div>
+            <h3>Per company, tiered by estate size, not per cluster.</h3>
+            <p>An annual self-hosted license, so you're never penalised for covering more of your estate. Terms are agreed per company.</p>
+            <div class="hero-ctas"><a class="btn btn-primary" href="mailto:hello@kubesreai.com?subject=KubeSREAI%20pricing">Book a briefing</a></div>
           </div>
           <div class="right">
             <ul class="checks">
               <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Self-hosted only: on-prem, private or sovereign cloud</li>
               <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Fully air-gapped deployment</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Runs on CPU; GPU optional for speed</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Runs on regular CPUs, and on GPUs for faster answers</li>
               <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Security-review and procurement support</li>
-              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Offline support: support bundles and on-site or escorted sessions</li>
+              <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Support that works without internet access</li>
             </ul>
           </div>
         </div>
@@ -604,7 +550,7 @@
         <div class="box">
           <div>
             <h2>Running sovereign or air-gapped infrastructure?</h2>
-            <p>We're working with a small number of design partners. Start in diagnose-only mode and see the root cause of your own incidents.</p>
+            <p>KubeSREAI is pre-release and looking for design partners. See the root cause of your own incidents, with nothing changing until you approve.</p>
           </div>
           <a class="btn btn-primary" href="mailto:hello@kubesreai.com?subject=KubeSREAI%20design%20partner">Become a design partner</a>
         </div>
@@ -618,15 +564,14 @@
       <div class="footer-grid">
         <div class="footer-col">
           <a class="brand" href="#top"><svg width="30" height="30" viewBox="0 0 512 512" aria-hidden="true"><path d="M256,80 L398,156 L398,276 C398,352 336,404 256,434 C176,404 114,352 114,276 L114,156 Z" fill="none" stroke="#2DD4BF" stroke-width="28" stroke-linejoin="round"/><polyline points="158,272 202,272 228,214 264,322 292,242 312,272 354,272" fill="none" stroke="#F8FAFC" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(330,176) scale(0.7)"><path d="M0,-34 C4,-8 8,-4 34,0 C8,4 4,8 0,34 C-4,8 -8,4 -34,0 C-8,-4 -4,-8 0,-34 Z" fill="#2DD4BF"/></g></svg>KubeSREAI</a>
-          <p>Offline AI SRE for sovereign cloud and air-gapped systems.</p>
+          <p>An AI SRE for your whole estate, inside your own network.</p>
         </div>
         <div class="footer-col">
           <h4>Product</h4>
           <div class="footer-links">
-            <a href="#why">Why offline</a>
+            <a href="#why">Why inside your network</a>
             <a href="#how">How it works</a>
             <a href="#coverage">Coverage</a>
-            <a href="#architecture">Architecture</a>
             <a href="#security">Security</a>
             <a href="#pricing">Pricing</a>
             <a href="/blog/">Blog</a>
@@ -634,7 +579,7 @@
         </div>
         <div class="footer-col">
           <h4>About</h4>
-          <p>Model weights trained on MIT-licensed data.</p>
+          <p>Pre-release. Looking for design partners.</p>
           <p class="contact">Contact: <a href="mailto:hello@kubesreai.com">hello@kubesreai.com</a></p>
         </div>
       </div>
