@@ -6,8 +6,10 @@
   <title>KubeSREAI — Offline AI SRE for sovereign cloud and air-gapped systems</title>
   <meta name="description" content="KubeSREAI is an offline AI SRE for sovereign cloud and air-gapped environments. It finds the root cause of production incidents and proposes safe, approved fixes, with the model and your data staying inside your network.">
 
-  <!-- Favicon: inline SVG monogram, no external file -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2032%2032'%3E%3Cdefs%3E%3ClinearGradient%20id='f'%20x1='0'%20y1='0'%20x2='1'%20y2='1'%3E%3Cstop%20offset='0'%20stop-color='%23818CF8'/%3E%3Cstop%20offset='1'%20stop-color='%232DD4BF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect%20x='0.75'%20y='0.75'%20width='30.5'%20height='30.5'%20rx='8'%20fill='%230B0F1A'%20stroke='url%28%23f%29'%20stroke-opacity='0.6'%20stroke-width='1.5'/%3E%3Cpath%20d='M16%205.5%20L24.5%208.8%20V15.2%20C24.5%2020.6%2020.9%2024.5%2016%2026.5%20C11.1%2024.5%207.5%2020.6%207.5%2015.2%20V8.8%20Z'%20fill='url%28%23f%29'%20fill-opacity='0.14'%20stroke='url%28%23f%29'%20stroke-width='1.8'%20stroke-linejoin='round'/%3E%3Cpath%20d='M10%2016.2%20H12.8%20L14.6%2012%20L17.2%2020.4%20L19%2016.2%20H22'%20fill='none'%20stroke='%23F3F2EF'%20stroke-width='1.8'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E">
+  <!-- Favicon: final KubeSREAI mark (files ship beside index.html; build.py copies them). -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon-180.png">
 
   <!-- Open Graph / Twitter: og.png ships alongside index.html (build.py copies it). -->
   <meta property="og:type" content="website">
@@ -310,15 +312,16 @@
 
   <header class="nav">
     <div class="wrap">
-      <a class="brand" href="#top" aria-label="KubeSREAI home"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#818CF8"/><stop offset="1" stop-color="#2DD4BF"/></linearGradient></defs><path d="M16 5.5 L24.5 8.8 V15.2 C24.5 20.6 20.9 24.5 16 26.5 C11.1 24.5 7.5 20.6 7.5 15.2 V8.8 Z" fill="url(#g1)" fill-opacity="0.14" stroke="url(#g1)" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 16.2 H12.8 L14.6 12 L17.2 20.4 L19 16.2 H22" fill="none" stroke="#F3F2EF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>KubeSREAI</a>
+      <a class="brand" href="#top" aria-label="KubeSREAI home"><svg width="30" height="30" viewBox="0 0 512 512" aria-hidden="true"><path d="M256,80 L398,156 L398,276 C398,352 336,404 256,434 C176,404 114,352 114,276 L114,156 Z" fill="none" stroke="#2DD4BF" stroke-width="28" stroke-linejoin="round"/><polyline points="158,272 202,272 228,214 264,322 292,242 312,272 354,272" fill="none" stroke="#F8FAFC" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(330,176) scale(0.7)"><path d="M0,-34 C4,-8 8,-4 34,0 C8,4 4,8 0,34 C-4,8 -8,4 -34,0 C-8,-4 -4,-8 0,-34 Z" fill="#2DD4BF"/></g></svg>KubeSREAI</a>
       <nav class="nav-links" aria-label="Primary">
         <a href="#why">Why offline</a>
         <a href="#how">How it works</a>
         <a href="#coverage">Coverage</a>
         <a href="#security">Security</a>
         <a href="#pricing">Pricing</a>
+        <a href="/blog/">Blog</a>
       </nav>
-      <a class="btn btn-primary" href="mailto:jenish.mistry@kubesreai.com?subject=KubeSREAI%20briefing">Book a briefing</a>
+      <a class="btn btn-primary" href="mailto:hello@kubesreai.com?subject=KubeSREAI%20briefing">Book a briefing</a>
     </div>
   </header>
 
@@ -332,7 +335,7 @@
           <h1>The AI SRE that never leaves <span class="grad">your perimeter.</span></h1>
           <p class="hero-sub">KubeSREAI finds the root cause of production incidents and proposes a safe fix, with the model, your runbooks and your telemetry all running inside your network. No internet. No external AI API. No GPU required.</p>
           <div class="hero-ctas">
-            <a class="btn btn-primary" href="mailto:jenish.mistry@kubesreai.com?subject=KubeSREAI%20briefing">Book a briefing</a>
+            <a class="btn btn-primary" href="mailto:hello@kubesreai.com?subject=KubeSREAI%20briefing">Book a briefing</a>
             <a class="btn btn-ghost" href="#how">See how it works &rarr;</a>
           </div>
           <div class="proof">
@@ -580,7 +583,7 @@
           <div class="left">
             <h3>Not per cluster. Not per server.</h3>
             <p>An annual self-hosted license, sized to your organization, so you're never penalised for covering more of your estate. Terms are set with each customer.</p>
-            <div class="hero-ctas"><a class="btn btn-primary" href="mailto:jenish.mistry@kubesreai.com?subject=KubeSREAI%20pricing">Talk to us</a></div>
+            <div class="hero-ctas"><a class="btn btn-primary" href="mailto:hello@kubesreai.com?subject=KubeSREAI%20pricing">Talk to us</a></div>
           </div>
           <div class="right">
             <ul class="checks">
@@ -603,7 +606,7 @@
             <h2>Running sovereign or air-gapped infrastructure?</h2>
             <p>We're working with a small number of design partners. Start in diagnose-only mode and see the root cause of your own incidents.</p>
           </div>
-          <a class="btn btn-primary" href="mailto:jenish.mistry@kubesreai.com?subject=KubeSREAI%20design%20partner">Become a design partner</a>
+          <a class="btn btn-primary" href="mailto:hello@kubesreai.com?subject=KubeSREAI%20design%20partner">Become a design partner</a>
         </div>
       </div>
     </section>
@@ -614,7 +617,7 @@
     <div class="wrap">
       <div class="footer-grid">
         <div class="footer-col">
-          <a class="brand" href="#top"><svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#818CF8"/><stop offset="1" stop-color="#2DD4BF"/></linearGradient></defs><path d="M16 5.5 L24.5 8.8 V15.2 C24.5 20.6 20.9 24.5 16 26.5 C11.1 24.5 7.5 20.6 7.5 15.2 V8.8 Z" fill="url(#g2)" fill-opacity="0.14" stroke="url(#g2)" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 16.2 H12.8 L14.6 12 L17.2 20.4 L19 16.2 H22" fill="none" stroke="#F3F2EF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>KubeSREAI</a>
+          <a class="brand" href="#top"><svg width="30" height="30" viewBox="0 0 512 512" aria-hidden="true"><path d="M256,80 L398,156 L398,276 C398,352 336,404 256,434 C176,404 114,352 114,276 L114,156 Z" fill="none" stroke="#2DD4BF" stroke-width="28" stroke-linejoin="round"/><polyline points="158,272 202,272 228,214 264,322 292,242 312,272 354,272" fill="none" stroke="#F8FAFC" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(330,176) scale(0.7)"><path d="M0,-34 C4,-8 8,-4 34,0 C8,4 4,8 0,34 C-4,8 -8,4 -34,0 C-8,-4 -4,-8 0,-34 Z" fill="#2DD4BF"/></g></svg>KubeSREAI</a>
           <p>Offline AI SRE for sovereign cloud and air-gapped systems.</p>
         </div>
         <div class="footer-col">
@@ -626,15 +629,16 @@
             <a href="#architecture">Architecture</a>
             <a href="#security">Security</a>
             <a href="#pricing">Pricing</a>
+            <a href="/blog/">Blog</a>
           </div>
         </div>
         <div class="footer-col">
           <h4>About</h4>
           <p>Model weights trained on MIT-licensed data.</p>
-          <p class="contact">Contact: <a href="mailto:jenish.mistry@kubesreai.com">jenish.mistry@kubesreai.com</a></p>
+          <p class="contact">Contact: <a href="mailto:hello@kubesreai.com">hello@kubesreai.com</a></p>
         </div>
       </div>
-      <div class="footer-bottom">&copy; 2026 KubeSREAI. All rights reserved.</div>
+      <div class="footer-bottom">&copy; 2026 KubeSREAI. All rights reserved. Kubernetes is a registered trademark of The Linux Foundation.</div>
     </div>
   </footer>
 
